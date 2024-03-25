@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../tutor.css";
+import { Link } from "react-router-dom";
 
 const Tutors = () => {
   const API = import.meta.env.VITE_BASE_URL;
@@ -7,7 +8,7 @@ const Tutors = () => {
   const [tutors, setTutors] = useState([]);
 
   useEffect(() => {
-    fetch(`${API}/api/users`)
+    fetch(`${API}/api/users/tutors`)
       .then((res) => res.json())
       .then((data) => setTutors(data.tutors));
   }, [tutors]);
@@ -21,7 +22,9 @@ const Tutors = () => {
             <p>{name}</p>
             <p>{subject}</p>
             <p>{is_remote}</p>
-            <button className="view-more">View More...</button>
+            <Link to={`/dashboard/tutor/${id}`}>
+              <button className="view-more">View More...</button>
+            </Link>
           </div>
         ))}
     </div>

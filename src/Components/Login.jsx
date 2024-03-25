@@ -1,63 +1,63 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-const URL = import.meta.env.VITE_BASE_URL
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+const URL = import.meta.env.VITE_BASE_URL;
 const Login = () => {
-  const navigate = useNavigate()
-  const [user, setUser] = useState({ username: '', password: '' })
+  const navigate = useNavigate();
+  const [user, setUser] = useState({ username: "", password: "" });
 
   function handleChange(event) {
-    setUser({ ...user, [event.target.id]: event.target.value })
+    setUser({ ...user, [event.target.id]: event.target.value });
   }
   // This function is being used in two places. It can be extracted to a helpers.js file
 
   async function postFetch(user) {
     const csrfToken = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('XSRF-TOKEN='))
-      .split('=')[1] // Extract CSRF token from cookies
+      .split("; ")
+      .find((row) => row.startsWith("XSRF-TOKEN="))
+      .split("=")[1]; // Extract CSRF token from cookies
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'CSRF-Token': csrfToken, // Include CSRF token in request headers
+        "Content-Type": "application/json",
+        "CSRF-Token": csrfToken, // Include CSRF token in request headers
       },
-      credentials: 'include', // Important: Include cookies in the request
+      credentials: "include", // Important: Include cookies in the request
       body: JSON.stringify(user),
-    }
+    };
     // next 3 lines are to see/test data - we want to save this to a state variable for logged in user
     // once looged in state variable witll update with logged in user's info
     fetch(`${URL}/api/auth/login`, options)
-    .then((res)=> res.json())
-    .then((data)=>console.log(data))
+      .then((res) => res.json())
+      .then((data) => console.log(data));
     try {
-      const res = await fetch(`${URL}/api/auth/login`, options)
+      const res = await fetch(`${URL}/api/auth/login`, options);
       if (!res.ok) {
-        alert('Login failed')
-        setUser({ username: '', password: '' })
-        throw new Error('Registration failed')
+        alert("Login failed");
+        setUser({ username: "", password: "" });
+        throw new Error("Registration failed");
       }
-      navigate('/dashboard')
+      navigate("/dashboard");
     } catch (error) {
-      console.error('Error during registration:', error)
+      console.error("Error during registration:", error);
     }
   }
 
   // Login Function
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (!user.username || !user.password) {
-      alert('You must enter a username and password')
-      return
+      alert("You must enter a username and password");
+      return;
     }
 
-    postFetch(user)
+    postFetch(user);
   }
 
   //Demo User Login Function
   async function handleDemoSignIn(e) {
-    e.preventDefault()
-    const user = { username: 'demo', password: 'password' }
-    postFetch(user)
+    e.preventDefault();
+    const user = { username: "demo", password: "password" };
+    postFetch(user);
   }
 
   // BUILD OUT YOUR FORM PROPERLY WITH LABELS AND WHATEVER CSS FRAMEWORK YOU MAY USE OR VANILLA CSS. THIS IS JUST A BOILERPLATE
@@ -100,7 +100,7 @@ const Login = () => {
         No Account? <Link to="/register">Register</Link>
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
