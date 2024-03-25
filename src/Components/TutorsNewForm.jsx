@@ -102,7 +102,7 @@ const TutorsNewForm = () => {
           <input
             id="profile_pic"
             value={tutorForm.profile_pic}
-            type="profile_pic"
+            type="text"
             placeholder="profile_pic"
             onChange={handleChange}
           />
@@ -113,7 +113,7 @@ const TutorsNewForm = () => {
           <input
             id="subject"
             value={tutorForm.subject}
-            type="subject"
+            type="text"
             placeholder="subject"
             onChange={handleChange}
           />
@@ -123,18 +123,18 @@ const TutorsNewForm = () => {
           <input
             id="is_remote "
             value={tutorForm.is_remote }
-            type="checkbox"
+            type="text"
             placeholder="is_remote"
             onChange={handleChange}
           />
         </label>
         <br />
-        <label htmlFor="is_booked">
+        <label htmlFor="description">
           <input
-            id="is_booked"
-            value={tutorForm.is_booked}
+            id="description"
+            value={tutorForm.description}
             type="checkbox"
-            placeholder="is_booked"
+            placeholder="idescription"
             onChange={handleChange}
           />
         </label>
