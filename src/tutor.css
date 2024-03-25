@@ -1,0 +1,35 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.tutor-listing {
+  display: flex;
+  justify-content: center;
+  gap: 20%;
+  /* border: black 2px solid; */
+  margin: 30px;
+}
+
+.tutor-card {
+  padding: 50px;
+  border: black 2px solid;
+  border-radius: 10px;
+}
+
+.view-more {
+  background-color: var(--primary-color);
+  font-size: 0.8rem; /* Adjusted font size */
+  font-weight: 600;
+  letter-spacing: 1px; /* Adjusted letter spacing */
+  padding: 0.5rem 1rem; /* Adjusted padding */
+  outline: none;
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.view-more:hover {
+  background-color: var(--primary-color-dark);
+}
