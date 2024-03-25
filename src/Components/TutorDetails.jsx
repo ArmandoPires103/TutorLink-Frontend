@@ -1,7 +1,11 @@
 import React from "react";
 
 const TutorDetails = () => {
-  return <div>TutorDetails</div>;
+  return (
+    <div>
+      <h1>Tutor details</h1>
+    </div>
+  );
 };
 
 export default TutorDetails;

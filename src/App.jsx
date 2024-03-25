@@ -4,6 +4,7 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
+import TutorDetails from "./Components/TutorDetails";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route element={<ProtectedRoute />}>
         {/* Place protected routes here */}
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/tutor/:tutorId" element={<TutorDetails />} />
       </Route>
     </Routes>
   );
