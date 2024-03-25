@@ -134,7 +134,7 @@ const TutorsNewForm = () => {
             id="description"
             value={tutorForm.description}
             type="text"
-            placeholder="idescription"
+            placeholder="description"
             onChange={handleChange}
           />
         </label>
