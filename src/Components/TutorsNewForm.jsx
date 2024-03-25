@@ -123,7 +123,7 @@ const TutorsNewForm = () => {
           <input
             id="is_remote "
             value={tutorForm.is_remote }
-            type="text"
+            type="checkbox"
             placeholder="is_remote"
             onChange={handleChange}
           />
@@ -133,7 +133,7 @@ const TutorsNewForm = () => {
           <input
             id="description"
             value={tutorForm.description}
-            type="checkbox"
+            type="text"
             placeholder="idescription"
             onChange={handleChange}
           />
