@@ -6,7 +6,6 @@
   display: flex;
   justify-content: center;
   gap: 20%;
-  /* border: black 2px solid; */
   margin: 30px;
 }
 
@@ -14,6 +13,24 @@
   padding: 50px;
   border: black 2px solid;
   border-radius: 10px;
+}
+
+.tutor-details-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tutor-details-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: var(--primary-color) 4px solid;
+  padding: 7%;
+  margin: 25%;
+  border-radius: 10px;
+  background: var(--primary-color-light);
 }
 
 .view-more {
