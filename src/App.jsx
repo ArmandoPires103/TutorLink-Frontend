@@ -1,9 +1,9 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link } from "react-router-dom";
 
-import ProtectedRoute from './Components/ProtectedRoute'
-import Register from './Components/Register'
-import Login from './Components/Login'
-import Dashboard from './Components/Dashboard'
+import ProtectedRoute from "./Components/ProtectedRoute";
+import Register from "./Components/Register";
+import Login from "./Components/Login";
+import Dashboard from "./Components/Dashboard";
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
