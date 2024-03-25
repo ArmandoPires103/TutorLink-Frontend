@@ -11,7 +11,7 @@ const TutorsNewForm = () => {
     profile_pic: "", 
     subject: "", 
     is_remote: "", 
-    is_booked: "" 
+    description: "" 
   });
 
   function handleChange(e) {
