@@ -24,7 +24,11 @@ const Login = () => {
       credentials: 'include', // Important: Include cookies in the request
       body: JSON.stringify(user),
     }
-
+    // next 3 lines are to see/test data - we want to save this to a state variable for logged in user
+    // once looged in state variable witll update with logged in user's info
+    fetch(`${URL}/api/auth/login`, options)
+    .then((res)=> res.json())
+    .then((data)=>console.log(data))
     try {
       const res = await fetch(`${URL}/api/auth/login`, options)
       if (!res.ok) {
@@ -32,7 +36,6 @@ const Login = () => {
         setUser({ username: '', password: '' })
         throw new Error('Registration failed')
       }
-
       navigate('/dashboard')
     } catch (error) {
       console.error('Error during registration:', error)
