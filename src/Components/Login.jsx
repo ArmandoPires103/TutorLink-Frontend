@@ -28,17 +28,21 @@ const Login = () => {
     };
     // next 3 lines are to see/test data - we want to save this to a state variable for logged in user
     // once looged in state variable witll update with logged in user's info
-    fetch(`${URL}/api/auth/login`, options)
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    // fetch(`${URL}/api/auth/login`, options)
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data));
     try {
       const res = await fetch(`${URL}/api/auth/login`, options);
+      const data = await res.json();
       if (!res.ok) {
         alert("Login failed");
         setUser({ username: "", password: "" });
         throw new Error("Registration failed");
       }
-      navigate("/dashboard");
+      // change line 44  when we create the tutors perspective
+
+      if (!data.is_tutor) navigate("/dashboard");
+      else navigate("/dashboard");
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -66,7 +70,7 @@ const Login = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <h2>Use the DemoUser button to login and save time during demo</h2>
       <h3> Remove the 'br' tags and these instructions if you use this code</h3>
       <button onClick={handleDemoSignIn}>Demo User</button>
