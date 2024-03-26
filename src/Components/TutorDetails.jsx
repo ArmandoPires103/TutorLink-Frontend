@@ -14,7 +14,7 @@ const TutorDetails = () => {
     fetch(`${API}/api/users/tutors/${tutorId}`)
       .then((res) => res.json())
       .then((data) => setSelectedTutor(data.tutor));
-  });
+  }, [tutorId]);
 
   function handleToggleReviews() {
     setToggleReviews(!toggleReviews);
