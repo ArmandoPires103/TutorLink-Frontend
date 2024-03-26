@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
+import TutorReviews from "./TutorReviews";
 
 const TutorDetails = () => {
   const API = import.meta.env.VITE_BASE_URL;
 
   const [selectedTutor, setSelectedTutor] = useState([]);
+  const [toggleReviews, setToggleReviews] = useState(false);
 
   const { tutorId } = useParams();
 
@@ -13,6 +15,10 @@ const TutorDetails = () => {
       .then((res) => res.json())
       .then((data) => setSelectedTutor(data.tutor));
   });
+
+  function handleToggleReviews() {
+    setToggleReviews(!toggleReviews);
+  }
 
   const { name, subject, description, profile_pic } = selectedTutor;
 
@@ -30,9 +36,15 @@ const TutorDetails = () => {
           {subject}
         </p>
         <p className="tutor-card-spacing">{description}</p>
-        <Link to="/dashboard" className="tutor-card-spacing">
-          <button className="view-more">Back to Home</button>
-        </Link>
+        <div>
+          <Link to="/dashboard" className="tutor-card-spacing">
+            <button className="view-more">Back to Home</button>
+          </Link>
+          <button onClick={handleToggleReviews} className="view-more">
+            {!toggleReviews ? "View Reviews" : "Close Reviews"}
+          </button>
+        </div>
+        {toggleReviews && <TutorReviews selectedTutor={selectedTutor} />}
       </div>
     </div>
   );
