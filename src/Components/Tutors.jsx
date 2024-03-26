@@ -18,12 +18,26 @@ const Tutors = () => {
       {tutors &&
         tutors.map(({ profile_pic, name, subject, is_remote, id }) => (
           <div key={id} className="tutor-card">
-            <img src={profile_pic} alt={profile_pic} />
-            <p>{name}</p>
-            <p>{subject}</p>
-            <p>{is_remote}</p>
-            <Link to={`/dashboard/tutor/${id}`}>
-              <button className="view-more">View More...</button>
+            <img
+              src={profile_pic}
+              alt={profile_pic}
+              className="tutor-img tutor-card-spacing"
+            />
+            <p className="tutor-card-spacing">
+              <strong>{name}</strong>
+            </p>
+            <p className="tutor-card-spacing">
+              {" "}
+              <strong>Expertise: </strong> {subject}
+            </p>
+            <p className="tutor-card-spacing">
+              {" "}
+              <strong>Remote: </strong> {is_remote ? "Yes" : "No"}
+            </p>
+            <Link to={`/dashboard/tutor/${id}`} className="tutor-card-spacing">
+              <button className="view-more view-more:hover ">
+                View More...
+              </button>
             </Link>
           </div>
         ))}

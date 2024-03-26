@@ -3,16 +3,30 @@
 }
 
 .tutor-listing {
-  display: flex;
-  justify-content: center;
-  gap: 20%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15%;
   margin: 30px;
 }
 
+.tutor-img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 10px;
+}
+
 .tutor-card {
-  padding: 50px;
+  padding: 20px;
   border: black 2px solid;
   border-radius: 10px;
+  background: var(--primary-color-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tutor-card-spacing {
+  padding: 5px;
 }
 
 .tutor-details-wrapper {
@@ -31,6 +45,15 @@
   margin: 25%;
   border-radius: 10px;
   background: var(--primary-color-light);
+}
+
+.button-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.button-spacing {
+  margin: 10px;
 }
 
 .view-more {
