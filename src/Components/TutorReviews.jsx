@@ -5,7 +5,7 @@ const TutorReviews = ({ selectedTutor }) => {
   const API = import.meta.env.VITE_BASE_URL;
 
   const [tutorReviews, setTutorReviews] = useState([]);
-  //   const [student, setStudent] = useState([]);
+  const [student, setStudent] = useState([]);
   const tutorId = selectedTutor.id;
 
   useEffect(() => {

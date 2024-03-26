@@ -47,6 +47,15 @@
   background: var(--primary-color-light);
 }
 
+.button-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.button-spacing {
+  margin: 10px;
+}
+
 .view-more {
   background-color: var(--primary-color);
   font-size: 0.8rem; /* Adjusted font size */

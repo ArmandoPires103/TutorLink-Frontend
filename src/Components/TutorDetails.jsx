@@ -36,11 +36,14 @@ const TutorDetails = () => {
           {subject}
         </p>
         <p className="tutor-card-spacing">{description}</p>
-        <div>
-          <Link to="/dashboard" className="tutor-card-spacing">
-            <button className="view-more">Back to Home</button>
+        <div className="button-layout">
+          <Link to="/dashboard">
+            <button className="view-more button-spacing">Back to Home</button>
           </Link>
-          <button onClick={handleToggleReviews} className="view-more">
+          <button
+            onClick={handleToggleReviews}
+            className="view-more button-spacing"
+          >
             {!toggleReviews ? "View Reviews" : "Close Reviews"}
           </button>
         </div>
