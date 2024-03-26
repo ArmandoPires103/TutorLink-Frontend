@@ -19,11 +19,18 @@ const TutorDetails = () => {
   return (
     <div className="tutor-details-wrapper">
       <div className="tutor-details-content">
-        <h1>{name}</h1>
-        <img src={profile_pic} alt={profile_pic} />
-        <p>Expertise: {subject}</p>
-        <p>{description}</p>
-        <Link to="/dashboard">
+        <h1 className="tutor-card-spacing">{name}</h1>
+        <img
+          src={profile_pic}
+          alt={profile_pic}
+          className="tutor-img tutor-card-spacing"
+        />
+        <p className="tutor-card-spacing">
+          <strong>Expertise: </strong>
+          {subject}
+        </p>
+        <p className="tutor-card-spacing">{description}</p>
+        <Link to="/dashboard" className="tutor-card-spacing">
           <button className="view-more">Back to Home</button>
         </Link>
       </div>
