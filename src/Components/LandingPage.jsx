@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from './Header';
 
 const LandingPage = () => {
   return (
@@ -17,18 +18,7 @@ const LandingPage = () => {
       </head>
       <body>
         <nav>
-          <div className="nav__content">
-            <div className="logo"><a href="#">TutorLink</a></div>
-            <label htmlFor="check" className="checkbox">
-              <i className="ri-menu-line"></i>
-            </label>
-            <input type="checkbox" name="check" id="check" />
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/login">Log In</Link></li>
-            </ul>
-          </div>
+        <Header/>
         </nav>
         <section className="section">
           <div className="section__container">
@@ -45,7 +35,7 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="image">
-              <img src="https://res.cloudinary.com/dhexjuuzd/image/upload/v1711384175/Data%20seed%20class/download_3_ygxbll.jpg" alt="profile" />
+              <img src="https://res.cloudinary.com/dhexjuuzd/image/upload/v1711401879/Data%20seed%20class/malte-helmhold-mQmuv-3jAOc-unsplash_cuzbyg.jpg" alt="profile" />
             </div>
           </div>
         </section>

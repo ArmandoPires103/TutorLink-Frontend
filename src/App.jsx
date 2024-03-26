@@ -4,7 +4,6 @@ import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
 import TutorDetails from "./Components/TutorDetails";
-
 import LandingPage from "./Components/LandingPage";
 
 function App() {
