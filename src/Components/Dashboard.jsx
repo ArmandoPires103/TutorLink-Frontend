@@ -1,6 +1,8 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
 import Tutors from "./Tutors";
 
+//   const { user } = useOutletContext(); // Bring this in to any protected route where you wanna know the users details
+
 const Dashboard = () => {
   const { user } = useOutletContext(); // Access user data provided by the Outlet's context
   const navigate = useNavigate();

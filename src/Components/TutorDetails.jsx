@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 
 const TutorDetails = () => {
   const API = import.meta.env.VITE_BASE_URL;
@@ -14,10 +14,19 @@ const TutorDetails = () => {
       .then((data) => setSelectedTutor(data.tutor));
   });
 
+  const { name, subject, description, profile_pic } = selectedTutor;
+
   return (
-    <div>
-      <h1>Tutor details</h1>
-      <p>{selectedTutor.name}</p>
+    <div className="tutor-details-wrapper">
+      <div className="tutor-details-content">
+        <h1>{name}</h1>
+        <img src={profile_pic} alt={profile_pic} />
+        <p>Expertise: {subject}</p>
+        <p>{description}</p>
+        <Link to="/dashboard">
+          <button className="view-more">Back to Home</button>
+        </Link>
+      </div>
     </div>
   );
 };
