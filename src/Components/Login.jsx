@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Header from "./Header";
+
 const URL = import.meta.env.VITE_BASE_URL;
 const Login = () => {
   const navigate = useNavigate();
@@ -64,6 +66,7 @@ const Login = () => {
 
   return (
     <div>
+      <Header/>
       <h2>Use the DemoUser button to login and save time during demo</h2>
       <h3> Remove the 'br' tags and these instructions if you use this code</h3>
       <button onClick={handleDemoSignIn}>Demo User</button>
