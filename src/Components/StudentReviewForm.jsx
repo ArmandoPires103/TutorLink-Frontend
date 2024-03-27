@@ -1,45 +1,63 @@
 import { useState } from "react";
-import { useParams, useOutletContext } from 'react-router-dom'
-
+import { useOutletContext } from "react-router-dom";
+// Created by Juli & Carlitos
 const API = import.meta.env.VITE_BASE_URL;
-const StudentsNewForm = () => {
-  const { id } = useParams(); // ??
+const StudentReviewForm = ({ selectedTutor }) => {
   const { user } = useOutletContext(); // Access user data provided by the Outlet's context
+
+  console.log(user);
+
+  console.log(user);
   const [formData, setFormData] = useState({
-    tutor_id: "",
-    subject: "",
+    username: user.username, // username of student
+    name: selectedTutor.name, // from prop get tutor username
+    subject: selectedTutor.subject,
     description: "",
+    ratings: 5,
     user_id: user.id,
-    ratings: ""
+    tutor_id: selectedTutor.id,
   });
+
+  console.log(formData);
+
+  console.log(`${API}api/users/tutors/${selectedTutor.id}/reviews`);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const csrfToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("XSRF-TOKEN="))
+      .split("=")[1]; // Extract CSRF token from cookies
+
     // tutor review by student (one to one)
-    fetch(`${API}/users/tutors/${user.id}/reviews`, {
+    fetch(`${API}/api/users/tutors/${selectedTutor.id}/reviews`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "CSRF-Token": csrfToken,
       },
-      body: JSON.stringify(formData)
+      credentials: "include",
+      body: JSON.stringify(formData),
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Data inserted successfully:", data);
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data inserted successfully:", data);
 
-      setFormData({
-        tutor_id: "",
-        subject: "",
-        description: "",
-        user_id: id,
-        ratings: ""
+        setFormData({
+          username: user.username, // username of student
+          name: selectedTutor.name, // from prop get tutor username
+          subject: selectedTutor.subject,
+          description: "",
+          ratings: 5,
+          user_id: user.id,
+          tutor_id: selectedTutor.id,
+        });
+      })
+      .catch((error) => {
+        console.error("Error inserting data:", error);
+        // Handle error if insertion fails
       });
-    })
-    .catch(error => {
-      console.error("Error inserting data:", error);
-      // Handle error if insertion fails
-    });
   };
 
   // Function to handle input changes
@@ -47,7 +65,7 @@ const StudentsNewForm = () => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -56,18 +74,31 @@ const StudentsNewForm = () => {
       <h2>Add New Student Review</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Assigned Tutor ID:</label>
+          <label htmlFor="username">Student:</label>
           <input
-            type="number"
-            name="assignedTutorId"
-            value={formData.tutor_id}
+            id="username"
+            type="text"
+            name="username"
+            value={formData.username}
             onChange={handleInputChange}
             required
           />
         </div>
         <div>
-          <label>Subject:</label>
+          <label htmlFor="name">Tutor Name:</label>
           <input
+            id="name"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="subject">Subject:</label>
+          <input
+            id="subject"
             type="text"
             name="subject"
             value={formData.subject}
@@ -76,8 +107,9 @@ const StudentsNewForm = () => {
           />
         </div>
         <div>
-          <label>Description:</label>
+          <label htmlFor="description">Review:</label>
           <textarea
+            id="description"
             name="description"
             value={formData.description}
             onChange={handleInputChange}
@@ -85,24 +117,20 @@ const StudentsNewForm = () => {
           />
         </div>
         <div>
-          <label>User ID:</label>
-          <input
-            type="number"
-            name="userId"
-            value={formData.user_id}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Ratings:</label>
-          <input
-            type="number"
-            name="ratings"
-            value={formData.ratings}
-            onChange={handleInputChange}
-            required
-          />
+          <label htmlFor="ratings">Rating:</label>
+            <select
+              id="ratings"
+              name="ratings"
+              value={formData.ratings}
+              onChange={handleInputChange}
+              required
+            >
+              <option value={5}>5</option>
+              <option value={4}>4</option>
+              <option value={3}>3</option>
+              <option value={2}>2</option>
+              <option value={1}>1</option>
+            </select>
         </div>
         <button type="submit">Submit</button>
       </form>
@@ -110,4 +138,4 @@ const StudentsNewForm = () => {
   );
 };
 
-export default StudentsNewForm;
+export default StudentReviewForm;
