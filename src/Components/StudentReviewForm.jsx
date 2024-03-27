@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
-// Created by Juli & Carlitos
+
 const API = import.meta.env.VITE_BASE_URL;
 const StudentReviewForm = ({ selectedTutor }) => {
   const { user } = useOutletContext(); // Access user data provided by the Outlet's context
-
-  console.log(user);
 
   console.log(user);
   const [formData, setFormData] = useState({
@@ -13,51 +11,50 @@ const StudentReviewForm = ({ selectedTutor }) => {
     name: selectedTutor.name, // from prop get tutor username
     subject: selectedTutor.subject,
     description: "",
-    ratings: 5,
-    user_id: user.id,
-    tutor_id: selectedTutor.id,
+    ratings: 1,
   });
 
-  console.log(formData);
-
-  console.log(`${API}api/users/tutors/${selectedTutor.id}/reviews`);
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
+    // Retrieve CSRF token from cookies
     const csrfToken = document.cookie
       .split("; ")
       .find((row) => row.startsWith("XSRF-TOKEN="))
-      .split("=")[1]; // Extract CSRF token from cookies
+      ?.split("=")[1]; // Use optional chaining to handle cases where token is not found
 
-    // tutor review by student (one to one)
-    fetch(`${API}/api/users/tutors/${selectedTutor.id}/reviews`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "CSRF-Token": csrfToken,
-      },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Data inserted successfully:", data);
+    try {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "CSRF-Token": csrfToken, // Include CSRF token in request headers
+        },
+        body: JSON.stringify(formData),
+      };
+      const response = await fetch(
+        `${API}/users/tutors/${selectedTutor.id}/reviews`,
+        options
+      );
 
-        setFormData({
-          username: user.username, // username of student
-          name: selectedTutor.name, // from prop get tutor username
-          subject: selectedTutor.subject,
-          description: "",
-          ratings: 5,
-          user_id: user.id,
-          tutor_id: selectedTutor.id,
-        });
-      })
-      .catch((error) => {
-        console.error("Error inserting data:", error);
-        // Handle error if insertion fails
+      if (!response.ok) {
+        throw new Error(`Failed to submit review: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Data inserted successfully:", data);
+
+      // Clear form data after successful submission
+      setFormData({
+        username: user.username,
+        name: selectedTutor.name,
+        subject: selectedTutor.subject,
+        description: "",
+        ratings: 1,
       });
+    } catch (error) {
+      console.error("Error inserting data:", error);
+      // Handle error if insertion fails
+    }
   };
 
   // Function to handle input changes
@@ -118,19 +115,14 @@ const StudentReviewForm = ({ selectedTutor }) => {
         </div>
         <div>
           <label htmlFor="ratings">Rating:</label>
-            <select
-              id="ratings"
-              name="ratings"
-              value={formData.ratings}
-              onChange={handleInputChange}
-              required
-            >
-              <option value={5}>5</option>
-              <option value={4}>4</option>
-              <option value={3}>3</option>
-              <option value={2}>2</option>
-              <option value={1}>1</option>
-            </select>
+          <input
+            id="ratings"
+            type="number"
+            name="ratings"
+            value={formData.ratings}
+            onChange={handleInputChange}
+            required
+          />
         </div>
         <button type="submit">Submit</button>
       </form>
