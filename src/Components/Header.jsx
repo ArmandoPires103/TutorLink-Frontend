@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import "../Components/Header.css"
+import "../Components/Header.css"
 
 const Header = () => {
   return (
-    <div className="nav__content">
+    <nav className="nav__content">
       <div className="logo"><Link to="/">TutorLink</Link></div>
       <label htmlFor="check" className="checkbox">
         <i className="ri-menu-line"></i>
@@ -17,7 +17,7 @@ const Header = () => {
         <li><Link to="/about">About</Link></li>
         <li><Link to="/login">Log In</Link></li>
       </ul>
-    </div>
+    </nav>
   );
 };
 
