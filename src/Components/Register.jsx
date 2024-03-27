@@ -7,13 +7,24 @@ const URL = import.meta.env.VITE_BASE_URL
 
 const Register = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState({ username: '', password: '', email: '' })
-  const [imageURL, setImageURL] = useState('')
+  const [user, setUser] = useState({ 
+    profile_pic:'', // for cloudinary
+    name:'', 
+    username: '', 
+    password: '', 
+    email: '', 
+    is_tutor: false, 
+    is_remote: false, 
+    subject:'', 
+    is_enrolled: false, // used for studentRequests
+    is_booked: false // used for studentRequests
+  });
+  const [imageURL, setImageURL] = useState() // add profile_pic key
 
   function handleChange(event) {
     setUser({ ...user, [event.target.id]: event.target.value })
   }
-
+// goes to back end to auth controller
   async function handleSubmit(e) {
     e.preventDefault()
     const csrfToken = document.cookie
@@ -40,6 +51,7 @@ const Register = () => {
     }
   }
   
+  // to upload picture
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   useEffect(() => {
@@ -64,62 +76,114 @@ const Register = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <div className="login-body">
-    <div className="wrapper">
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-      <div className="input-box">
-        <label htmlFor="username">
-          <input
-            id="username"
-            value={user.username}
-            type="text"
-            placeholder="username"
-            onChange={handleChange}
-            autoComplete="username"
-          />
-        </label>
+        <div className="wrapper">
+          <h1>Register</h1>
+          <form onSubmit={handleSubmit}>
+            <div className="input-box">
+              <div>
+                <label htmlFor="name">
+                  <input
+                    id="name"
+                    value={user.name}
+                    type="text"
+                    placeholder="Full Name"
+                    onChange={handleChange}
+                    autoComplete="name"
+                  />
+                </label>
+              </div>
+              <br />
+              <label htmlFor="username">
+                <input
+                  id="username"
+                  value={user.username}
+                  type="text"
+                  placeholder="Username"
+                  onChange={handleChange}
+                  autoComplete="username"
+                />
+              </label>
+            </div>
+            <br />
+            <div className="input-box">
+              <label htmlFor="email">
+                <input
+                  id="email"
+                  value={user.email}
+                  type="email"
+                  placeholder="Email"
+                  onChange={handleChange}
+                  autoComplete="email"
+                />
+              </label>
+            </div>
+            <br />
+            <div className="input-box">
+              <label htmlFor="password">
+                <input
+                  id="password"
+                  value={user.password}
+                  type="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  autoComplete="current-password"
+                />
+              </label>
+            </div>
+            <div className="input-box">
+              <label htmlFor="subject">
+                <input
+                  id="subject"
+                  value={user.subject}
+                  type="subject"
+                  placeholder="subject"
+                  onChange={handleChange}
+                  autoComplete="subject"
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="is_tutor">User Type</label>
+              <select
+                id="is_tutor"
+                name="is_tutor"
+                value={user.is_tutor}
+                onChange={handleChange}
+                required
+              >
+                <option value={false}>Student</option>
+                <option value={true}>Tutor</option>
+              </select>
+            </div>
+            <br />
+            <div>
+              <label htmlFor="is_remote">Remote?</label>
+              <select
+                id="is_remote"
+                name="is_remote"
+                value={user.is_remote}
+                onChange={handleChange}
+                required
+              >
+                <option value={false}>In Person</option>
+                <option value={true}>Remote</option>
+              </select>
+            </div>
+
+            <button type='submit' className='btn'>Submit</button>
+          </form>
+          <p>
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+          <button className="add-image-button" onClick={() => widgetRef.current.open()}>
+            Add Profile Picture
+          </button>
         </div>
-        <br />
-        <div className="input-box">
-        <label htmlFor="email">
-          <input
-            id="email"
-            value={user.email}
-            type="email"
-            placeholder="email"
-            onChange={handleChange}
-            autoComplete="email"
-          />
-        </label>
-        </div>
-        <br />
-        <div className="input-box">
-        <label htmlFor="password">
-          <input
-            id="password"
-            value={user.password}
-            type="password"
-            placeholder="password"
-            onChange={handleChange}
-            autoComplete="current-password"
-          />
-        </label>
-        </div>
-        <br />
-        <button type='submit' className='btn'>Submit</button>
-      </form>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
-      <button className="add-image-button" onClick={() => widgetRef.current.open()}>
-            Add Image
-        </button>
-      </div>
       </div>
     </div>
-  )
+  );  
 }
 
-export default Register
+export default Register;
