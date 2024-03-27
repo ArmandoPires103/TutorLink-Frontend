@@ -118,19 +118,19 @@ const StudentReviewForm = ({ selectedTutor }) => {
         </div>
         <div>
           <label htmlFor="ratings">Rating:</label>
-            <select
-              id="ratings"
-              name="ratings"
-              value={formData.ratings}
-              onChange={handleInputChange}
-              required
-            >
-              <option value={5}>5</option>
-              <option value={4}>4</option>
-              <option value={3}>3</option>
-              <option value={2}>2</option>
-              <option value={1}>1</option>
-            </select>
+          <select
+            id="ratings"
+            name="ratings"
+            value={formData.ratings}
+            onChange={handleInputChange}
+            required
+          >
+            <option value={5}>5</option>
+            <option value={4}>4</option>
+            <option value={3}>3</option>
+            <option value={2}>2</option>
+            <option value={1}>1</option>
+          </select>
         </div>
         <button type="submit">Submit</button>
       </form>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 const TutorReviews = ({ selectedTutor }) => {
   const API = import.meta.env.VITE_BASE_URL;
+  const { user } = useOutletContext();
 
   const [tutorReviews, setTutorReviews] = useState([]);
-  const [student, setStudent] = useState([]);
+  const [editReviewId, setEditReviewId] = useState(null);
   const tutorId = selectedTutor.id;
 
   useEffect(() => {
@@ -14,18 +15,26 @@ const TutorReviews = ({ selectedTutor }) => {
       .then((data) => setTutorReviews(data.tutorReviews));
   }, [tutorId]);
 
+  function handleEdit(id) {
+    setEditReviewId((prevId) => (prevId === id ? null : id));
+  }
+
   return (
     <div>
       <h1>Reviews</h1>
-      <div>
-        {tutorReviews &&
-          tutorReviews.map(({ id, description, ratings }) => (
-            <div key={id}>
-              <p>{"⭐".repeat(ratings)}</p>
-              <p>{description}</p>
-            </div>
-          ))}
-      </div>
+      {tutorReviews.map(({ id, description, ratings, user_id }) => (
+        <div key={id}>
+          <p>{"⭐".repeat(ratings)}</p>
+          <p>{description}</p>
+          {user_id === user.id && (
+            <>
+              <button onClick={() => handleEdit(id)}>Edit</button>
+              <button>Delete</button>
+              {editReviewId === id && "Hello"}
+            </>
+          )}
+        </div>
+      ))}
     </div>
   );
 };
