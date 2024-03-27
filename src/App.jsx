@@ -6,13 +6,18 @@ import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
 import TutorDetails from "./Components/TutorDetails";
 import LandingPage from "./Components/LandingPage";
+
+import About from "./Components/About";
+
 import StudentRequest from "./Components/StudentRequest";
+
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<Login />}>
+      <Route path="/about" element={<About />} />
+      <Route path="/login" element={<Login />} >
         <Route
           index 
           element={

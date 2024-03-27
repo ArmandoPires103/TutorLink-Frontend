@@ -1,0 +1,50 @@
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #faf5ff;
+  }
+  
+  .about-heading {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .developer-card {
+    display: inline-block;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease; /* Adding transition for transform property */
+  }
+  
+  .developer-card:hover {
+    transform: scale(1.05); /* Enlarging the card by 5% on hover */
+  }
+  
+  .developer-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .developer-link {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .developer-link:hover {
+    color: #007bff;
+  }
+  
+  .developer-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+  }
+  
