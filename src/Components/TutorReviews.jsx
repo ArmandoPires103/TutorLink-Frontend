@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 
 const TutorReviews = ({ selectedTutor }) => {
@@ -7,7 +6,7 @@ const TutorReviews = ({ selectedTutor }) => {
   const { user } = useOutletContext();
 
   const [tutorReviews, setTutorReviews] = useState([]);
-  const [student, setStudent] = useState([]);
+  const [editReviewId, setEditReviewId] = useState(null);
   const tutorId = selectedTutor.id;
 
   useEffect(() => {
@@ -16,23 +15,26 @@ const TutorReviews = ({ selectedTutor }) => {
       .then((data) => setTutorReviews(data.tutorReviews));
   }, [tutorId]);
 
-  // console.log("Tutor Reviews: ", tutorReviews);
-  // console.log("User Info", user);
+  function handleEdit(id) {
+    setEditReviewId((prevId) => (prevId === id ? null : id));
+  }
 
   return (
     <div>
       <h1>Reviews</h1>
-      <div>
-        {tutorReviews &&
-          tutorReviews.map(({ id, description, ratings, user_id }) => (
-            <div key={id}>
-              <p>{"⭐".repeat(ratings)}</p>
-              <p>{description}</p>
-              {user_id === user.id && <button>Edit</button>}
+      {tutorReviews.map(({ id, description, ratings, user_id }) => (
+        <div key={id}>
+          <p>{"⭐".repeat(ratings)}</p>
+          <p>{description}</p>
+          {user_id === user.id && (
+            <>
+              <button onClick={() => handleEdit(id)}>Edit</button>
               <button>Delete</button>
-            </div>
-          ))}
-      </div>
+              {editReviewId === id && "Hello"}
+            </>
+          )}
+        </div>
+      ))}
     </div>
   );
 };
