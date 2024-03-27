@@ -65,8 +65,11 @@ const Register = () => {
   return (
     <div>
       <Header/>
+      <div className="login-body">
+    <div className="wrapper">
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
+      <div className="input-box">
         <label htmlFor="username">
           <input
             id="username"
@@ -77,8 +80,9 @@ const Register = () => {
             autoComplete="username"
           />
         </label>
+        </div>
         <br />
-
+        <div className="input-box">
         <label htmlFor="email">
           <input
             id="email"
@@ -89,7 +93,9 @@ const Register = () => {
             autoComplete="email"
           />
         </label>
+        </div>
         <br />
+        <div className="input-box">
         <label htmlFor="password">
           <input
             id="password"
@@ -100,8 +106,9 @@ const Register = () => {
             autoComplete="current-password"
           />
         </label>
+        </div>
         <br />
-        <button>Submit</button>
+        <button type='submit' className='btn'>Submit</button>
       </form>
       <p>
         Already have an account? <Link to="/login">Login</Link>
@@ -109,7 +116,8 @@ const Register = () => {
       <button className="add-image-button" onClick={() => widgetRef.current.open()}>
             Add Image
         </button>
-
+      </div>
+      </div>
     </div>
   )
 }

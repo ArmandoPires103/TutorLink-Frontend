@@ -1,11 +1,16 @@
 import { Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
 import TutorDetails from "./Components/TutorDetails";
 import LandingPage from "./Components/LandingPage";
+
 import About from "./Components/About";
+
+import StudentRequest from "./Components/StudentRequest";
+
 
 function App() {
   return (
@@ -28,6 +33,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute />}>
         {/* Place protected routes here */}
+        <Route path="/requests" element={<StudentRequest />}/>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/tutor/:tutorId" element={<TutorDetails />} />
       </Route>

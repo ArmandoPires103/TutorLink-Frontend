@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import "../Components/Login.css"
 import Header from "./Header";
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -40,9 +41,9 @@ const Login = () => {
         throw new Error("Registration failed");
       }
       // change line 44  when we create the tutors perspective
-
-      if (!data.is_tutor) navigate("/dashboard");
-      else navigate("/dashboard");
+      console.log(data)
+      if (!data.user_details.is_tutor) navigate("/dashboard");
+      else navigate("/requests");
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -70,15 +71,13 @@ const Login = () => {
 
   return (
     <div>
-      <Header />
-      <h2>Use the DemoUser button to login and save time during demo</h2>
-      <h3> Remove the 'br' tags and these instructions if you use this code</h3>
-      <button onClick={handleDemoSignIn}>Demo User</button>
-      <br />
-      <br />
-      <br />
-      <h4>Login</h4>
+      <Header/>
+      
+    <div className="login-body">
+    <div className="wrapper">
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
+        <div className="input-box">
         <label htmlFor="username">
           <input
             id="username"
@@ -89,7 +88,9 @@ const Login = () => {
             onChange={handleChange}
           />
         </label>
+        </div>
         <br />
+        <div className="input-box">
         <label htmlFor="password">
           <input
             id="password"
@@ -100,12 +101,17 @@ const Login = () => {
             autoComplete="current-password"
           />
         </label>
+        </div>
         <br />
-        <button>Submit</button>
+        <button type="submit" class="btn">Login</button>
       </form>
+        <div className="register-link">
       <p>
         No Account? <Link to="/register">Register</Link>
       </p>
+        </div>
+    </div>
+    </div>
     </div>
   );
 };

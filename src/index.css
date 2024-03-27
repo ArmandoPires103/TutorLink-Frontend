@@ -25,7 +25,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-nav {
+/* nav {
   width: 100%;
   position: fixed;
   top: 0;
@@ -64,7 +64,7 @@ nav .checkbox i {
   font-size: 2rem;
   color: var(--primary-color);
   cursor: pointer;
-}
+} */
 
 ul {
   display: flex;
