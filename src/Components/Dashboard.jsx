@@ -22,7 +22,7 @@ const Dashboard = () => {
   }
   return (
     <div>
-      <h1>Welcome, {user && user.username.toUpperCase()}</h1>
+      <h1>Welcome, {user && user.username.toUpperCase() && user.subject}</h1>
       <h3>This is a protected Component called Dashboard</h3>
       {/* Use user data as needed, for example: */}
 
