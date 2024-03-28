@@ -81,6 +81,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             name="username"
             value={formData.username}
             onChange={handleInputChange}
+            className="input-gray-out"
             required
           />
         </div>
@@ -92,6 +93,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
+            className="input-gray-out"
             required
           />
         </div>
@@ -103,6 +105,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             name="subject"
             value={formData.subject}
             onChange={handleInputChange}
+            className="input-gray-out"
             required
           />
         </div>

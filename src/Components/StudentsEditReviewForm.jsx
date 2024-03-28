@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 const StudentsEditReviewForm = ({ tutorId, id, selectedTutor }) => {
   const API = import.meta.env.VITE_BASE_URL;
+
+  const { user } = useOutletContext();
 
   const [editedTutorReview, setEditedTutorReview] = useState({
     subject: "",
@@ -18,6 +21,32 @@ const StudentsEditReviewForm = ({ tutorId, id, selectedTutor }) => {
     });
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const csrfToken = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("XSRF-TOKEN="))
+        .split("=")[1];
+
+      fetch(`${API}/api/users/tutors/${selectedTutor.id}/reviews/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "CSRF-Token": csrfToken,
+        },
+        credentials: "include",
+        body: JSON.stringify(editedTutorReview),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Review Updated!", data);
+        });
+    } catch (error) {
+      return error;
+    }
+  };
+
   useEffect(() => {
     fetch(`${API}/api/users/tutors/${selectedTutor.id}/reviews/${id}`)
       .then((res) => res.json())
@@ -27,10 +56,17 @@ const StudentsEditReviewForm = ({ tutorId, id, selectedTutor }) => {
   return (
     <div>
       <h2>Edit Review</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Student:</label>
-          <input id="username" type="text" name="username" required />
+          <input
+            id="username"
+            type="text"
+            name="username"
+            value={user.username}
+            readOnly
+            className="input-gray-out"
+          />
         </div>
         <div>
           <label htmlFor="name">Tutor Name:</label>
@@ -39,6 +75,7 @@ const StudentsEditReviewForm = ({ tutorId, id, selectedTutor }) => {
             type="text"
             name="name"
             value={editedTutorReview.tutor_name}
+            className="input-gray-out"
             readOnly
           />
         </div>
@@ -49,6 +86,7 @@ const StudentsEditReviewForm = ({ tutorId, id, selectedTutor }) => {
             type="text"
             name="subject"
             value={editedTutorReview.subject}
+            className="input-gray-out"
             readOnly
           />
         </div>

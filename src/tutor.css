@@ -56,6 +56,10 @@
   margin: 10px;
 }
 
+.input-gray-out {
+  background: lightgray;
+}
+
 .view-more {
   background-color: var(--primary-color);
   font-size: 0.8rem; /* Adjusted font size */
