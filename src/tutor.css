@@ -37,23 +37,31 @@
 }
 
 .tutor-details-content {
+  max-height: 80vh; /* Adjust the maximum height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
   display: flex;
   flex-direction: column;
   align-items: center;
   border: var(--primary-color) 4px solid;
-  padding: 7%;
+  /* padding: 7%; */
   margin: 25%;
   border-radius: 10px;
   background: var(--primary-color-light);
+  min-width: 80vw;
+  min-height: 50vh;
 }
 
 .button-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .button-spacing {
   margin: 10px;
+}
+
+.input-gray-out {
+  background: lightgray;
 }
 
 .view-more {
@@ -70,6 +78,51 @@
   color: #ffffff;
 }
 
+.review-edit-del-button {
+  background-color: var(--primary-color);
+  font-size: 0.7rem; /* Adjusted font size */
+  font-weight: 600;
+  letter-spacing: 1px; /* Adjusted letter spacing */
+  padding: 0.3rem 0.6rem; /* Adjusted padding */
+  outline: none;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px; /* Smaller border radius */
+  transition: 0.3s;
+  cursor: pointer;
+  color: #ffffff;
+  max-width: 75%;
+}
+
 .view-more:hover {
   background-color: var(--primary-color-dark);
+}
+
+form button {
+  background-color: var(--primary-color);
+  font-size: 0.7rem; /* Adjusted font size */
+  font-weight: 600;
+  letter-spacing: 1px; /* Adjusted letter spacing */
+  padding: 0.3rem 0.6rem; /* Adjusted padding */
+  outline: none;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px; /* Smaller border radius */
+  transition: 0.3s;
+  cursor: pointer;
+  color: #ffffff;
+  max-width: 75%;
+}
+
+/* TUTOR DETAILS DIDNT USE */
+.tutor-details-background {
+  background: var(--primary-color-light);
+  min-height: 100vh;
+}
+
+.tutor-info {
+  display: flex;
+  width: 40%;
+}
+
+.tutor-info-spacing {
+  padding: 10px;
 }

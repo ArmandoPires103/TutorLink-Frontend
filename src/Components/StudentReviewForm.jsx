@@ -9,8 +9,8 @@ const StudentReviewForm = ({ selectedTutor }) => {
 
   console.log(user);
   const [formData, setFormData] = useState({
-    username: user.username, // username of student
-    name: selectedTutor.name, // from prop get tutor username
+    username: user.username,
+    name: selectedTutor.name,
     subject: selectedTutor.subject,
     description: "",
     ratings: 5,
@@ -45,8 +45,8 @@ const StudentReviewForm = ({ selectedTutor }) => {
         console.log("Data inserted successfully:", data);
 
         setFormData({
-          username: user.username, // username of student
-          name: selectedTutor.name, // from prop get tutor username
+          username: user.username,
+          name: selectedTutor.name,
           subject: selectedTutor.subject,
           description: "",
           ratings: 5,
@@ -56,7 +56,6 @@ const StudentReviewForm = ({ selectedTutor }) => {
       })
       .catch((error) => {
         console.error("Error inserting data:", error);
-        // Handle error if insertion fails
       });
   };
 

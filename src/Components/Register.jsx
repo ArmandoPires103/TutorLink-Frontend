@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom'; // Import your context hook
 
+
 const URL = import.meta.env.VITE_BASE_URL;
 
 const Register = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useOutletContext() || {}; // Access the user object from context
-  const [imageURL, setImageURL] = useState();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -20,8 +20,6 @@ const Register = () => {
     subject: '',
     description: ''
   });
-
-  
 
   useEffect(() => {
     if (user) {
@@ -38,7 +36,34 @@ const Register = () => {
       });
     }
   }, [user]);
+  
+  function setImageURL(uploadedURL){
 
+    setUser({
+      ...user,
+      profile_pic: uploadedURL
+    })
+  }
+  // to upload picture
+  const cloudinaryRef = useRef();
+  const widgetRef = useRef();
+  useEffect(() => {
+      cloudinaryRef.current = window.cloudinary 
+      console.log(cloudinaryRef.current)
+      widgetRef.current = cloudinaryRef.current.createUploadWidget({
+          cloudName:'dhexjuuzd',
+          uploadPreset: 'upload-image',
+      }, function (error, result) {
+          if (result && result.event === 'success') {
+              const uploadedURL = result.info.secure_url;
+              setImageURL(uploadedURL);
+              console.log('Image uploaded. URL:', uploadedURL);
+          } else if (error) {
+              console.error('Error uploading image:', error);
+          }
+          console.log(result.info.url)
+      })
+  }, [])
 
   function handleChange(event) {
     const { id, type, checked, value } = event.target;
@@ -67,43 +92,14 @@ const Register = () => {
     };
 
     try {
+
       const res = await fetch(user ? `${URL}/api/users/${user.id}` : `${URL}/api/auth/register`, options);
       if (!res.ok) throw new Error(user ? 'Update failed' : 'Registration failed');
-
       navigate('/dashboard')
     } catch (error) {
       console.error('Error:', error);
     }
   }
-
-  function setImageURL(uploadedURL){
-    setUser({
-      ...user,
-      profile_pic: uploadedURL
-    })
-  }
-  
-  // to upload picture
-  const cloudinaryRef = useRef();
-  const widgetRef = useRef();
-  useEffect(() => {
-      cloudinaryRef.current = window.cloudinary 
-      console.log(cloudinaryRef.current)
-      widgetRef.current = cloudinaryRef.current.createUploadWidget({
-          cloudName:'dhexjuuzd',
-          uploadPreset: 'upload-image',
-      }, function (error, result) {
-          if (result && result.event === 'success') {
-              const uploadedURL = result.info.secure_url;
-              setImageURL(uploadedURL);
-              console.log('Image uploaded. URL:', uploadedURL);
-          } else if (error) {
-              console.error('Error uploading image:', error);
-          }
-          console.log(result.info.url)
-      })
-  }, [])
-
 
   return (
     <div>
@@ -142,9 +138,7 @@ const Register = () => {
       <p>
         Already have an account? <Link to="/login">Login</Link>
       </p>
-      <button className="add-image-button" onClick={() => widgetRef.current.open()}>
-            Add Profile Picture
-      </button>
+      <button className="add-image-button" onClick={() => widgetRef.current.open()}> Add Image </button>
     </div>
   );
 };
