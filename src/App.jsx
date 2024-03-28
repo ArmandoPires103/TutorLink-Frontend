@@ -33,6 +33,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute />}>
         {/* Place protected routes here */}
+        <Route path="/dashboard/edit" element={<Register />}></Route>
         <Route path="/requests" element={<StudentRequest />}/>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/tutor/:tutorId" element={<TutorDetails />} />
