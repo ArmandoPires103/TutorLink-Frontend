@@ -8,12 +8,12 @@ const API = import.meta.env.VITE_BASE_URL
 const Register = () => {
   const navigate = useNavigate()
   const [user, setUser] = useState({ 
+    
     profile_pic:'', // for cloudinary
     name:'', 
     username: '', 
     password: '', 
     email: '', 
-    description: '',
     is_tutor: false, 
     is_remote: false, 
     subject: null,
