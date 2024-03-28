@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import Header from './Header'
 
-const URL = import.meta.env.VITE_BASE_URL
+const API = import.meta.env.VITE_BASE_URL
 
 const Register = () => {
   const navigate = useNavigate()
@@ -13,13 +13,14 @@ const Register = () => {
     username: '', 
     password: '', 
     email: '', 
+    description: '',
     is_tutor: false, 
     is_remote: false, 
     subject: null, 
     is_enrolled: false, // used for studentRequests
     is_booked: false // used for studentRequests
   });
-  const [imageURL, setImageURL] = useState() // add profile_pic key
+  // const [imageURL, setImageURL] = useState() // add profile_pic key
 
   function handleChange(event) {
     setUser({ ...user, [event.target.id]: event.target.value })
@@ -43,13 +44,19 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch(`${URL}/api/auth/register`, options)
+      const res = await fetch(`${API}/api/auth/register`, options)
       if (!res.ok) throw new Error('Registration failed')
 
       navigate('/dashboard') // Navigate to /dashboard on success
     } catch (error) {
       console.error('Error during registration:', error)
     }
+  }
+    function setImageURL(uploadedURL){
+    setUser({
+      ...user,
+      profile_pic: uploadedURL
+    })
   }
   
   // to upload picture

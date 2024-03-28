@@ -1,9 +1,11 @@
 .about-container {
-    max-width: 800px;
+    /* max-width: 600px; */
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 20px;
     text-align: center;
     background-color: #faf5ff;
+    min-height: 100vh;
+    min-width: 100vh;
   }
   
   .about-heading {
