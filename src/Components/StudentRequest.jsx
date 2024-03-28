@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import "../Components/StudentRequest.css"
+import Header from "./Header";
 
 function StudentRequest() {
   const API = import.meta.env.VITE_BASE_URL;
@@ -29,13 +31,17 @@ function StudentRequest() {
 
   return (
     <div>
+      <Header/>
+    <div className="student-request-container">
+      <div className="card">
+        <div className="imgBx">
       <h2>Student Requests</h2> 
       {studentRequest.map(({ student_name, student_id, student_email, student_profile_pic }) => (
         <div key={student_id}> {/* Use student_id as the key */}
-          <div>
+          <div className="student-name">
             Student Name: {student_name}
           </div>
-          <div>
+          <div className="student-email">
             Student Email: {student_email}
           </div>
           <div>
@@ -43,6 +49,9 @@ function StudentRequest() {
           </div>
         </div>
       ))}
+    </div>
+    </div>
+    </div>
     </div>
   );
 }
