@@ -32,7 +32,11 @@ const TutorReviews = ({ selectedTutor }) => {
               <button onClick={() => handleEdit(id)}>Edit</button>
               <button>Delete</button>
               {editReviewId === id && (
-                <StudentsEditReviewForm tutorId={tutorId} />
+                <StudentsEditReviewForm
+                  tutorId={tutorId}
+                  id={id}
+                  selectedTutor={selectedTutor}
+                />
               )}
             </>
           )}
