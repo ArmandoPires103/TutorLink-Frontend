@@ -15,7 +15,8 @@ const Register = () => {
     email: '', 
     is_tutor: false, 
     is_remote: false, 
-    subject: null, 
+    subject: null,
+    description: null,
     is_enrolled: false, // used for studentRequests
     is_booked: false // used for studentRequests
   });
@@ -83,46 +84,47 @@ const Register = () => {
           <h1>Register</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-box">
-              <div>
-                <label htmlFor="name">
-                  <input
-                    id="name"
-                    value={user.name}
-                    type="text"
-                    placeholder="Full Name"
-                    onChange={handleChange}
-                    autoComplete="name"
-                  />
-                </label>
-              </div>
-              <br />
+              <label htmlFor="name">
+                <input
+                  id="name"
+                  name="name"
+                  value={user.name}
+                  type="text"
+                  placeholder="Full Name"
+                  onChange={handleChange}
+                  autoComplete="name"
+                  required
+                />
+              </label>
+            </div>
+            <br />
+            <div className="input-box">
               <label htmlFor="username">
                 <input
                   id="username"
+                  name="username"
                   value={user.username}
                   type="text"
                   placeholder="Username"
                   onChange={handleChange}
                   autoComplete="username"
+                  required
                 />
               </label>
             </div>
             {/* temporary until css is fixed */}
             <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             <div className="input-box">
               <label htmlFor="email">
                 <input
                   id="email"
+                  name="email"
                   value={user.email}
                   type="email"
                   placeholder="Email"
                   onChange={handleChange}
                   autoComplete="email"
+                  required
                 />
               </label>
             </div>
@@ -131,11 +133,13 @@ const Register = () => {
               <label htmlFor="password">
                 <input
                   id="password"
+                  name="password"
                   value={user.password}
                   type="password"
                   placeholder="Password"
                   onChange={handleChange}
-                  autoComplete="current-password"
+                  autoComplete="new-password"
+                  required
                 />
               </label>
             </div>
@@ -152,36 +156,44 @@ const Register = () => {
                 <option value={false}>Student</option>
                 <option value={true}>Tutor</option>
               </select>
-              {/* if is_tutor is true then show the option to put in subject and is_remote */}
             </div>
             <br />
-            {/* Add maybe ternary (subject="" instead of null if is_tutor=true) for when user registering selects tutor user type (is_tutor = true) */}
-            {/* <div className="input-box">
-              <label htmlFor="subject">
+            {/* Conditional rendering based on user type */}
+            {user.is_tutor && (
+              <div>
+                <label htmlFor="subject">Subject</label>
                 <input
                   id="subject"
+                  name="subject"
                   value={user.subject}
-                  type="subject"
-                  placeholder="subject"
+                  type="text"
+                  placeholder="Subject"
                   onChange={handleChange}
                   autoComplete="subject"
                 />
-              </label>
-            </div> */}
-            <br />
-            {/* <div>
-              <label htmlFor="is_remote">Remote?</label>
-              <select
-                id="is_remote"
-                name="is_remote"
-                value={user.is_remote}
-                onChange={handleChange}
-                required
-              >
-                <option value={false}>In Person</option>
-                <option value={true}>Remote</option>
-              </select>
-            </div> */}
+                <br />
+                <label htmlFor="description">Biography</label>
+                <input
+                  id="description"
+                  name="description"
+                  value={user.description}
+                  type="textarea"
+                  placeholder="Add Short Description"
+                  onChange={handleChange}
+                />
+                <label htmlFor="is_remote">Remote?</label>
+                <select
+                  id="is_remote"
+                  name="is_remote"
+                  value={user.is_remote}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value={false}>In Person</option>
+                  <option value={true}>Remote</option>
+                </select>
+              </div>
+            )}
             <br />
             <button type='submit' className='btn'>Submit</button>
           </form>
