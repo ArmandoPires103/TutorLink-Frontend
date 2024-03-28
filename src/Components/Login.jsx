@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+
 import "../Components/Login.css"
 import Header from "./Header";
+
 
 const URL = import.meta.env.VITE_BASE_URL;
 const Login = () => {
@@ -27,6 +29,7 @@ const Login = () => {
       credentials: "include", // Important: Include cookies in the request
       body: JSON.stringify(user),
     };
+
     // next 3 lines are to see/test data - we want to save this to a state variable for logged in user
     // once looged in state variable witll update with logged in user's info
     // fetch(`${URL}/api/auth/login`, options)
@@ -35,15 +38,24 @@ const Login = () => {
     try {
       const res = await fetch(`${URL}/api/auth/login`, options);
       const data = await res.json();
+
+
+    try {
+      const res = await fetch(`${URL}/api/auth/login`, options);
+
       if (!res.ok) {
         alert("Login failed");
         setUser({ username: "", password: "" });
         throw new Error("Registration failed");
       }
+
       // change line 44  when we create the tutors perspective
       console.log(data)
       if (!data.user_details.is_tutor) navigate("/dashboard");
-      else navigate("/requests");
+
+
+      navigate("/dashboard");
+
     } catch (error) {
       console.error("Error during registration:", error);
     }
@@ -66,6 +78,18 @@ const Login = () => {
     const user = { username: "demo", password: "password" };
     postFetch(user);
   }
+  useEffect(() => {
+    // Fetch call to the root route of your backend to get the CSRF token
+    fetch(`${URL}`, {
+      credentials: "include", // Important: Include cookies in the request
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("XSRF-Token cookie should now be set.");
+        }
+      })
+      .catch((error) => console.error("Error fetching CSRF token:", error));
+  }, []);
 
   // BUILD OUT YOUR FORM PROPERLY WITH LABELS AND WHATEVER CSS FRAMEWORK YOU MAY USE OR VANILLA CSS. THIS IS JUST A BOILERPLATE
 
