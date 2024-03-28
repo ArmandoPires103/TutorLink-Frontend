@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
-const StudentsEditReviewForm = ({ tutorId, id, selectedTutor }) => {
+const StudentsEditReviewForm = ({
+  tutorId,
+  id,
+  selectedTutor,
+  setToggleReviews,
+  toggleReviews,
+}) => {
   const API = import.meta.env.VITE_BASE_URL;
 
   const { user } = useOutletContext();
@@ -42,6 +48,7 @@ const StudentsEditReviewForm = ({ tutorId, id, selectedTutor }) => {
         .then((data) => {
           console.log("Review Updated!", data);
         });
+      setToggleReviews(!toggleReviews);
     } catch (error) {
       return error;
     }
