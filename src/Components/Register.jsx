@@ -1,65 +1,49 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
-import Header from './Header'
+import { useState, useEffect } from 'react';
+import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom'; // Import your context hook
 
-const API = import.meta.env.VITE_BASE_URL
+
+const URL = import.meta.env.VITE_BASE_URL;
 
 const Register = () => {
-  const navigate = useNavigate()
-  const [user, setUser] = useState({ 
-    
-    profile_pic:'', // for cloudinary
-    name:'', 
-    username: '', 
-    password: '', 
-    email: '', 
-    is_tutor: false, 
-    is_remote: false, 
-    subject: null,
-    description: null,
-    is_enrolled: false, // used for studentRequests
-    is_booked: false // used for studentRequests
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const { user } = useOutletContext() || {}; // Access the user object from context
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    email: '',
+    is_tutor: false,
+    is_remote: false,
+    name: '',
+    profile_pic: '',
+    subject: '',
+    description: ''
   });
-  // const [imageURL, setImageURL] = useState() // add profile_pic key
 
-  function handleChange(event) {
-    setUser({ ...user, [event.target.id]: event.target.value })
-  }
-// goes to back end to auth controller
-  async function handleSubmit(e) {
-    e.preventDefault()
-    const csrfToken = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('XSRF-TOKEN='))
-      .split('=')[1] // Extract CSRF token from cookies
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'CSRF-Token': csrfToken, // Include CSRF token in request headers
-      },
-      credentials: 'include', // Important: Include cookies in the request
-      // body: JSON.stringify(user, imageURL),
-      body: JSON.stringify(user),
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        username: user.username || '',
+        password: '', // Password should not be populated for security reasons
+        email: user.email || '',
+        is_tutor: user.is_tutor || false,
+        is_remote: user.is_remote || false,
+        name: user.name || '',
+        profile_pic: user.profile_pic || '',
+        subject: user.subject || '',
+        description: user.description || ''
+      });
     }
+  }, [user]);
+  
+  function setImageURL(uploadedURL){
 
-    try {
-      const res = await fetch(`${API}/api/auth/register`, options)
-      if (!res.ok) throw new Error('Registration failed')
-
-      navigate('/dashboard') // Navigate to /dashboard on success
-    } catch (error) {
-      console.error('Error during registration:', error)
-    }
-  }
-    function setImageURL(uploadedURL){
     setUser({
       ...user,
       profile_pic: uploadedURL
     })
   }
-  
   // to upload picture
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
@@ -81,139 +65,83 @@ const Register = () => {
       })
   }, [])
 
-  // BUILD OUT YOUR FORM PROPERLY WITH LABELS AND WHATEVER CSS FRAMEWORK YOU MAY USE OR VANILLA CSS. THIS IS JUST A BOILERPLATE
+  function handleChange(event) {
+    const { id, type, checked, value } = event.target;
+    const newValue = type === 'checkbox' ? checked : value;
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [id]: newValue
+    }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const csrfToken = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('XSRF-TOKEN='))
+      .split('=')[1];
+
+    const options = {
+      method: user ? 'PUT' : 'POST', // Use PUT for updating, POST for new registration
+      headers: {
+        'Content-Type': 'application/json',
+        'CSRF-Token': csrfToken
+      },
+      credentials: 'include',
+      body: JSON.stringify(formData)
+    };
+
+    try {
+
+      const res = await fetch(user ? `${URL}/api/users/${user.id}` : `${URL}/api/auth/register`, options);
+      if (!res.ok) throw new Error(user ? 'Update failed' : 'Registration failed');
+      navigate('/dashboard')
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
 
   return (
     <div>
-      <Header />
-      <div className="login-body">
-        <div className="wrapper">
-          <h1>Register</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="input-box">
-              <label htmlFor="name">
-                <input
-                  id="name"
-                  name="name"
-                  value={user.name}
-                  type="text"
-                  placeholder="Full Name"
-                  onChange={handleChange}
-                  autoComplete="name"
-                  required
-                />
-              </label>
-            </div>
-            <br />
-            <div className="input-box">
-              <label htmlFor="username">
-                <input
-                  id="username"
-                  name="username"
-                  value={user.username}
-                  type="text"
-                  placeholder="Username"
-                  onChange={handleChange}
-                  autoComplete="username"
-                  required
-                />
-              </label>
-            </div>
-            {/* temporary until css is fixed */}
-            <br />
-            <div className="input-box">
-              <label htmlFor="email">
-                <input
-                  id="email"
-                  name="email"
-                  value={user.email}
-                  type="email"
-                  placeholder="Email"
-                  onChange={handleChange}
-                  autoComplete="email"
-                  required
-                />
-              </label>
-            </div>
-            <br />
-            <div className="input-box">
-              <label htmlFor="password">
-                <input
-                  id="password"
-                  name="password"
-                  value={user.password}
-                  type="password"
-                  placeholder="Password"
-                  onChange={handleChange}
-                  autoComplete="new-password"
-                  required
-                />
-              </label>
-            </div>
-            <br />
-            <div>
-              <label htmlFor="is_tutor">User Type</label>
-              <select
-                id="is_tutor"
-                name="is_tutor"
-                value={user.is_tutor}
-                onChange={handleChange}
-                required
-              >
-                <option value={false}>Student</option>
-                <option value={true}>Tutor</option>
-              </select>
-            </div>
-            <br />
-            {/* Conditional rendering based on user type */}
-            {user.is_tutor && (
-              <div>
-                <label htmlFor="subject">Subject</label>
-                <input
-                  id="subject"
-                  name="subject"
-                  value={user.subject}
-                  type="text"
-                  placeholder="Subject"
-                  onChange={handleChange}
-                  autoComplete="subject"
-                />
-                <br />
-                <label htmlFor="description">Biography</label>
-                <input
-                  id="description"
-                  name="description"
-                  value={user.description}
-                  type="textarea"
-                  placeholder="Add Short Description"
-                  onChange={handleChange}
-                />
-                <label htmlFor="is_remote">Remote?</label>
-                <select
-                  id="is_remote"
-                  name="is_remote"
-                  value={user.is_remote}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value={false}>In Person</option>
-                  <option value={true}>Remote</option>
-                </select>
-              </div>
-            )}
-            <br />
-            <button type='submit' className='btn'>Submit</button>
-          </form>
-          <p>
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-          <button className="add-image-button" onClick={() => widgetRef.current.open()}>
-            Add Profile Picture
-          </button>
-        </div>
-      </div>
+      <h1>{user ? 'Edit_Profile' : 'Register'}</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username:</label>
+        <input id="username" type="text" value={formData.username} onChange={handleChange} required />
+        <br />
+        <label htmlFor="email">Email:</label>
+        <input id="email" type="email" value={formData.email} onChange={handleChange} required />
+        <br />
+        {!user && (
+          <>
+            <label htmlFor="password">Password:</label>
+            <input id="password" type="password" value={formData.password} onChange={handleChange} required />
+          </>
+        )}
+        <label htmlFor="is_tutor"> Are you a tutor?</label>
+        <input id="is_tutor" type="checkbox" checked={formData.is_tutor} onChange={handleChange} />
+        <br />
+        <label htmlFor="name">Name:</label>
+        <input id="name" type="text" checked={formData.name} onChange={handleChange}/>
+        <br />
+        <label htmlFor="subject">Subject:</label>
+        <input id="subject" type="text" checked={formData.subject} onChange={handleChange}/>
+        <br />
+        <label htmlFor="description">Description:</label>
+        <input id="description" type="text" checked={formData.description} onChange={handleChange}/>
+        <br />
+        Do you prefer remote tutoring?
+        <label htmlFor="is_remote">  </label>
+        <input id="is_remote" type="checkbox" checked={formData.is_remote} onChange={handleChange}/>
+        <br />
+          <button type="submit" className='btn'>{user ? 'Update' : 'Register'}</button>
+      </form>
+      <p>
+        Already have an account? <Link to="/login">Login</Link>
+      </p>
+      <button className="add-image-button" onClick={() => widgetRef.current.open()}> Add Image </button>
     </div>
-  );  
-}
+  );
+};
 
 export default Register;
+

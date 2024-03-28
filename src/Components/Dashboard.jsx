@@ -1,4 +1,4 @@
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext, useNavigate, Link } from "react-router-dom";
 import Tutors from "./Tutors";
 
 //   const { user } = useOutletContext(); // Bring this in to any protected route where you wanna know the users details
@@ -25,7 +25,7 @@ const Dashboard = () => {
       <h1>Welcome, {user && user.username.toUpperCase()}</h1>
       <h3>This is a protected Component called Dashboard</h3>
       {/* Use user data as needed, for example: */}
-
+      <Link to="/dashboard/edit">Edit Profile</Link>
       <button onClick={handleLogout}>Logout</button>
       <Tutors />
     </div>
