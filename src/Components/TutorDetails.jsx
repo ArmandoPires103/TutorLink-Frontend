@@ -44,8 +44,8 @@ const TutorDetails = () => {
         </p>
         <p className="tutor-card-spacing">{description}</p>
         <div className="button-layout">
-          <Link to="/dashboard">
-            <button className="view-more button-spacing">Back to Home</button>
+          <Link to="/dashboard" className=" button-spacing">
+            <button className="view-more">Back to Home</button>
           </Link>
           <button
             onClick={handleToggleReviews}
@@ -57,16 +57,17 @@ const TutorDetails = () => {
             onClick={handleCreateReview}
             className="view-more button-spacing"
           >
-            {!toggleCreateReview ? "Leave a Review" : "Cancel"}
+            {!toggleCreateReview ? "Create a Review!" : "Cancel"}
           </button>
-          {toggleCreateReview && (
-            <StudentReviewForm
-              selectedTutor={selectedTutor}
-              toggleReviews={toggleReviews}
-              setToggleReviews={setToggleReviews}
-            />
-          )}
         </div>
+
+        {toggleCreateReview && (
+          <StudentReviewForm
+            selectedTutor={selectedTutor}
+            toggleReviews={toggleReviews}
+            setToggleReviews={setToggleReviews}
+          />
+        )}
         {toggleReviews && (
           <TutorReviews
             selectedTutor={selectedTutor}

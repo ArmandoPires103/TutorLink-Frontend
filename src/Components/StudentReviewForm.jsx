@@ -2,19 +2,15 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 // Created by Juli & Carlitos
 const API = import.meta.env.VITE_BASE_URL;
-const StudentReviewForm = ({
-  selectedTutor,
-  setToggleReviews,
-  toggleReviews,
-}) => {
+const StudentReviewForm = ({ selectedTutor }) => {
   const { user } = useOutletContext(); // Access user data provided by the Outlet's context
 
   console.log(user);
 
   console.log(user);
   const [formData, setFormData] = useState({
-    username: user.username, // username of student
-    name: selectedTutor.name, // from prop get tutor username
+    username: user.username,
+    name: selectedTutor.name,
     subject: selectedTutor.subject,
     description: "",
     ratings: 5,
@@ -49,8 +45,8 @@ const StudentReviewForm = ({
         console.log("Data inserted successfully:", data);
 
         setFormData({
-          username: user.username, // username of student
-          name: selectedTutor.name, // from prop get tutor username
+          username: user.username,
+          name: selectedTutor.name,
           subject: selectedTutor.subject,
           description: "",
           ratings: 5,
@@ -58,14 +54,8 @@ const StudentReviewForm = ({
           tutor_id: selectedTutor.id,
         });
       })
-      .then(() => {
-        if (toggleReviews === false) {
-          setToggleReviews(!toggleReviews);
-        }
-      })
       .catch((error) => {
         console.error("Error inserting data:", error);
-        // Handle error if insertion fails
       });
   };
 
@@ -90,7 +80,6 @@ const StudentReviewForm = ({
             name="username"
             value={formData.username}
             onChange={handleInputChange}
-            className="input-gray-out"
             required
           />
         </div>
@@ -102,7 +91,6 @@ const StudentReviewForm = ({
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="input-gray-out"
             required
           />
         </div>
@@ -114,7 +102,6 @@ const StudentReviewForm = ({
             name="subject"
             value={formData.subject}
             onChange={handleInputChange}
-            className="input-gray-out"
             required
           />
         </div>
