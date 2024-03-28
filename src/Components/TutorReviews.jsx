@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import StudentsEditReviewForm from "./StudentsEditReviewForm";
 
 const TutorReviews = ({ selectedTutor }) => {
   const API = import.meta.env.VITE_BASE_URL;
@@ -30,7 +31,9 @@ const TutorReviews = ({ selectedTutor }) => {
             <>
               <button onClick={() => handleEdit(id)}>Edit</button>
               <button>Delete</button>
-              {editReviewId === id && "Hello"}
+              {editReviewId === id && (
+                <StudentsEditReviewForm tutorId={tutorId} />
+              )}
             </>
           )}
         </div>
