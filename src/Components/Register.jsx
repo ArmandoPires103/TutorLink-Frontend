@@ -15,7 +15,7 @@ const Register = () => {
     email: '', 
     is_tutor: false, 
     is_remote: false, 
-    subject:'', 
+    subject: null, 
     is_enrolled: false, // used for studentRequests
     is_booked: false // used for studentRequests
   });
@@ -38,7 +38,8 @@ const Register = () => {
         'CSRF-Token': csrfToken, // Include CSRF token in request headers
       },
       credentials: 'include', // Important: Include cookies in the request
-      body: JSON.stringify(user, imageURL),
+      // body: JSON.stringify(user, imageURL),
+      body: JSON.stringify(user),
     }
 
     try {
@@ -106,6 +107,12 @@ const Register = () => {
                 />
               </label>
             </div>
+            {/* temporary until css is fixed */}
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <br />
             <div className="input-box">
               <label htmlFor="email">
@@ -132,18 +139,7 @@ const Register = () => {
                 />
               </label>
             </div>
-            <div className="input-box">
-              <label htmlFor="subject">
-                <input
-                  id="subject"
-                  value={user.subject}
-                  type="subject"
-                  placeholder="subject"
-                  onChange={handleChange}
-                  autoComplete="subject"
-                />
-              </label>
-            </div>
+            <br />
             <div>
               <label htmlFor="is_tutor">User Type</label>
               <select
@@ -156,9 +152,24 @@ const Register = () => {
                 <option value={false}>Student</option>
                 <option value={true}>Tutor</option>
               </select>
+              {/* if is_tutor is true then show the option to put in subject and is_remote */}
             </div>
             <br />
-            <div>
+            {/* Add maybe ternary (subject="" instead of null if is_tutor=true) for when user registering selects tutor user type (is_tutor = true) */}
+            {/* <div className="input-box">
+              <label htmlFor="subject">
+                <input
+                  id="subject"
+                  value={user.subject}
+                  type="subject"
+                  placeholder="subject"
+                  onChange={handleChange}
+                  autoComplete="subject"
+                />
+              </label>
+            </div> */}
+            <br />
+            {/* <div>
               <label htmlFor="is_remote">Remote?</label>
               <select
                 id="is_remote"
@@ -170,8 +181,8 @@ const Register = () => {
                 <option value={false}>In Person</option>
                 <option value={true}>Remote</option>
               </select>
-            </div>
-
+            </div> */}
+            <br />
             <button type='submit' className='btn'>Submit</button>
           </form>
           <p>
