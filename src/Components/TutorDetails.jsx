@@ -23,7 +23,8 @@ const TutorDetails = () => {
   }
 
   function handleCreateReview() {
-    setToggleCreateReview(!toggleCreateReview)
+    setToggleCreateReview(!toggleCreateReview);
+    // setToggleReviews(!toggleReviews);
   }
 
   const { name, subject, description, profile_pic } = selectedTutor;
@@ -56,11 +57,23 @@ const TutorDetails = () => {
             onClick={handleCreateReview}
             className="view-more button-spacing"
           >
-            {!toggleCreateReview? "Leave a Review": "Cancel"}
+            {!toggleCreateReview ? "Leave a Review" : "Cancel"}
           </button>
-          {toggleCreateReview && <StudentReviewForm selectedTutor={selectedTutor}/>}
+          {toggleCreateReview && (
+            <StudentReviewForm
+              selectedTutor={selectedTutor}
+              toggleReviews={toggleReviews}
+              setToggleReviews={setToggleReviews}
+            />
+          )}
         </div>
-        {toggleReviews && <TutorReviews selectedTutor={selectedTutor} />}
+        {toggleReviews && (
+          <TutorReviews
+            selectedTutor={selectedTutor}
+            setToggleReviews={setToggleReviews}
+            toggleReviews={toggleReviews}
+          />
+        )}
       </div>
     </div>
   );

@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 // Created by Juli & Carlitos
 const API = import.meta.env.VITE_BASE_URL;
-const StudentReviewForm = ({ selectedTutor }) => {
+const StudentReviewForm = ({
+  selectedTutor,
+  setToggleReviews,
+  toggleReviews,
+}) => {
   const { user } = useOutletContext(); // Access user data provided by the Outlet's context
 
   console.log(user);
@@ -54,6 +58,11 @@ const StudentReviewForm = ({ selectedTutor }) => {
           tutor_id: selectedTutor.id,
         });
       })
+      .then(() => {
+        if (toggleReviews === false) {
+          setToggleReviews(!toggleReviews);
+        }
+      })
       .catch((error) => {
         console.error("Error inserting data:", error);
         // Handle error if insertion fails
@@ -81,6 +90,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             name="username"
             value={formData.username}
             onChange={handleInputChange}
+            className="input-gray-out"
             required
           />
         </div>
@@ -92,6 +102,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
+            className="input-gray-out"
             required
           />
         </div>
@@ -103,6 +114,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             name="subject"
             value={formData.subject}
             onChange={handleInputChange}
+            className="input-gray-out"
             required
           />
         </div>
