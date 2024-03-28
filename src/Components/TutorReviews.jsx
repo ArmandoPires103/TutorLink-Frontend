@@ -14,7 +14,7 @@ const TutorReviews = ({ selectedTutor, toggleReviews, setToggleReviews }) => {
     fetch(`${API}/api/users/tutors/${tutorId}/reviews`)
       .then((res) => res.json())
       .then((data) => setTutorReviews(data.tutorReviews));
-  }, [tutorId]);
+  }, [tutorId, tutorReviews]);
 
   function handleEdit(id) {
     setEditReviewId((prevId) => (prevId === id ? null : id));

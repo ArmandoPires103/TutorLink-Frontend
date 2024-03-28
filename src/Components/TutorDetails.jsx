@@ -24,6 +24,7 @@ const TutorDetails = () => {
 
   function handleCreateReview() {
     setToggleCreateReview(!toggleCreateReview);
+    // setToggleReviews(!toggleReviews);
   }
 
   const { name, subject, description, profile_pic } = selectedTutor;
@@ -59,7 +60,11 @@ const TutorDetails = () => {
             {!toggleCreateReview ? "Leave a Review" : "Cancel"}
           </button>
           {toggleCreateReview && (
-            <StudentReviewForm selectedTutor={selectedTutor} />
+            <StudentReviewForm
+              selectedTutor={selectedTutor}
+              toggleReviews={toggleReviews}
+              setToggleReviews={setToggleReviews}
+            />
           )}
         </div>
         {toggleReviews && (
