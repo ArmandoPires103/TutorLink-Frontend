@@ -56,8 +56,21 @@ const TutorReviews = ({ selectedTutor, toggleReviews, setToggleReviews }) => {
           <p>{description}</p>
           {user_id === user.id && (
             <>
-              <button onClick={() => handleEdit(id)}>Edit</button>
-              <button onClick={() => handleDelete(id)}>Delete</button>
+              <div className=" button-layout">
+                <button
+                  onClick={() => handleEdit(id)}
+                  className="button-spacing review-edit-del-button"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(id)}
+                  className="button-spacing review-edit-del-button"
+                >
+                  Delete
+                </button>
+              </div>
+
               {editReviewId === id && (
                 <StudentsEditReviewForm
                   tutorId={tutorId}
