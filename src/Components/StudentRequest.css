@@ -18,6 +18,9 @@
     align-items: center;
     margin-bottom: 20px;
   }
+  .accept-reject-buttons{
+    padding-left: 30vw;
+  }
 
   .requests-title{
     margin-bottom: 20px;

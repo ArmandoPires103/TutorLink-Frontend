@@ -25,8 +25,10 @@ const Dashboard = () => {
       <h2>Welcome, {user && user.username.toUpperCase()}</h2>
       <h2 className="welcome-line">Meet our Tutors</h2>
       {/* Use user data as needed, for example: */}
+      <div className="logout-button">
       <Link to="/dashboard/edit">Edit Profile</Link>
       <button onClick={handleLogout}>Logout</button>
+      </div>
       <Tutors />
     </div>
   );
