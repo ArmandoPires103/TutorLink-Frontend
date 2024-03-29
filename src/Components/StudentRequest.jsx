@@ -56,27 +56,48 @@ function StudentRequest() {
       console.error('Error accepting student request:', error);
     }
   };
+}
 
-  const handleReject = async () => {
-    try {
-      const response = await fetch(`${API}/api/requests/${user.id}/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          "CSRF-Token": csrfToken,
-        },
-        body: JSON.stringify({ tutorId: user.id })
-      });
-      if (!response.ok) {
-        throw new Error('Failed to reject student request');
+const handleDelete = async () => {
+  try {
+    const response = await fetch(`${API}/api/requests/${user.id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        "CSRF-Token": csrfToken,
       }
-      // Update the student request list after rejecting
-      const updatedStudentRequest = studentRequest.filter(student => student.student_id !== studentId);
-      setStudentRequest(updatedStudentRequest);
-    } catch (error) {
-      console.error('Error rejecting student request:', error);
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete student request');
     }
-  };
+    const updatedStudentRequest = studentRequest.filter(student => student.student_id !== studentId);
+    setStudentRequest(updatedStudentRequest);
+  } catch (error) {
+    console.error('Error deleting student request:', error);
+  }
+};
+  
+
+  // const handleReject = async () => {
+  //   try {
+  //     const response = await fetch(`${API}/api/requests/${user.id}/`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         "CSRF-Token": csrfToken,
+  //       },
+  //       body: JSON.stringify({ tutorId: user.id })
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Failed to reject student request');
+  //     }
+  //     // Update the student request list after rejecting
+  //     const updatedStudentRequest = studentRequest.filter(student => student.student_id !== studentId);
+  //     setStudentRequest(updatedStudentRequest);
+  //   } catch (error) {
+  //     console.error('Error rejecting student request:', error);
+  //   }
+  // };
 
   return (
     <div>
@@ -100,7 +121,6 @@ function StudentRequest() {
             { !is_enrolled && 
               <div className="accept-reject-buttons">
                 <button onClick={() => handleAccept(student_id)}>Accept</button>
-                <button onClick={() => handleReject(student_id)}>Reject</button>
               </div>
             }
           </div>
@@ -109,9 +129,26 @@ function StudentRequest() {
           <Link to="/login" className="btn-logout">Logout</Link>
         </div>
       </div>
+      
+      <div className="student-confirm">
+        <h1>You are already booked</h1>
+        <h3>Booked Student:</h3>
+        <img src={student_profile_pic} alt="Student Profile Pic" />
+        <div className="student-request-info"> 
+              <div className="student-name">
+                Student Name: <span className="bold"> {student_name} </span>
+              </div>
+              <div className="student-email">
+                Student Email: <span className="bold"> {student_email} </span>
+              </div>
+        </div>
+        <div className="accept-reject-buttons">
+                <button onClick={() => handleDelete(student_id)}>Done</button>
+              </div>
+      </div>
     </div>
   );
-}
+
 
 export default StudentRequest;
 
