@@ -11,6 +11,9 @@
   --max-width: 1200px;
 }
 
+.dashboard-top{
+  padding-top: 100px;
+}
 * {
   padding: 0;
   margin: 0;
@@ -217,4 +220,19 @@ ul li a:hover {
   .action__btns {
     margin: auto;
   }
+}
+
+.welcome-line{
+  color: #9333ea;
+}
+
+.dashboard-top h2{
+  padding-left: 30px;
+}
+
+
+.button-logout{
+  width: 96vw;
+  display: flex;
+  justify-content: right;
 }

@@ -207,7 +207,7 @@ const Register = () => {
           <p>
             Already have an account? <Link to="/login">Login</Link>
           </p>
-          <button className="add-image-button" onClick={() => widgetRef.current.open()}>
+          <button className="btn" onClick={() => widgetRef.current.open()}>
             Add Profile Picture
           </button>
         </div>
