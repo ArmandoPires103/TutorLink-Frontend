@@ -9,13 +9,15 @@ const TutorDetails = () => {
   const [selectedTutor, setSelectedTutor] = useState([]);
   const [toggleReviews, setToggleReviews] = useState(false);
   const [toggleCreateReview, setToggleCreateReview] = useState(false);
+  const [availability, setAvailability] = useState(null);
 
   const { tutorId } = useParams();
 
   useEffect(() => {
     fetch(`${API}/api/users/tutors/${tutorId}`)
       .then((res) => res.json())
-      .then((data) => setSelectedTutor(data.tutor));
+      .then((data) => setSelectedTutor(data.tutor))
+      .then(() => setAvailability(selectedTutor.is_enrolled));
   }, [tutorId]);
 
   function handleToggleReviews() {
@@ -59,6 +61,16 @@ const TutorDetails = () => {
           >
             {!toggleCreateReview ? "Create a Review!" : "Cancel"}
           </button>
+
+          {availability ? (
+            <button className="unavailable-button button-spacing">
+              Tutor Unavailable
+            </button>
+          ) : (
+            <button className="view-more button-spacing">
+              Book a Session!
+            </button>
+          )}
         </div>
 
         {toggleCreateReview && (
