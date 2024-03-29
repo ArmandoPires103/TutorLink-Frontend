@@ -57,26 +57,26 @@ function StudentRequest() {
     }
   };
 
-  const handleReject = async () => {
-    try {
-      const response = await fetch(`${API}/api/requests/${user.id}/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          "CSRF-Token": csrfToken,
-        },
-        body: JSON.stringify({ tutorId: user.id })
-      });
-      if (!response.ok) {
-        throw new Error('Failed to reject student request');
-      }
-      // Update the student request list after rejecting
-      const updatedStudentRequest = studentRequest.filter(student => student.student_id !== studentId);
-      setStudentRequest(updatedStudentRequest);
-    } catch (error) {
-      console.error('Error rejecting student request:', error);
-    }
-  };
+  // const handleReject = async () => {
+  //   try {
+  //     const response = await fetch(`${API}/api/requests/${user.id}/`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         "CSRF-Token": csrfToken,
+  //       },
+  //       body: JSON.stringify({ tutorId: user.id })
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Failed to reject student request');
+  //     }
+  //     // Update the student request list after rejecting
+  //     const updatedStudentRequest = studentRequest.filter(student => student.student_id !== studentId);
+  //     setStudentRequest(updatedStudentRequest);
+  //   } catch (error) {
+  //     console.error('Error rejecting student request:', error);
+  //   }
+  // };
 
   return (
     <div>
@@ -100,7 +100,6 @@ function StudentRequest() {
             { !is_enrolled && 
               <div className="accept-reject-buttons">
                 <button onClick={() => handleAccept(student_id)}>Accept</button>
-                <button onClick={() => handleReject(student_id)}>Reject</button>
               </div>
             }
           </div>
