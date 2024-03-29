@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import TutorReviews from "./TutorReviews";
 import StudentReviewForm from "./StudentReviewForm";
+import { useOutletContext } from "react-router-dom";
 
 const TutorDetails = () => {
   const API = import.meta.env.VITE_BASE_URL;
@@ -10,8 +11,19 @@ const TutorDetails = () => {
   const [toggleReviews, setToggleReviews] = useState(false);
   const [toggleCreateReview, setToggleCreateReview] = useState(false);
   const [availability, setAvailability] = useState(null);
+  const [tutorRequests, setTutorRequests] = useState([]);
 
   const { tutorId } = useParams();
+
+  const { user } = useOutletContext();
+
+  const [userData, setUserData] = useState({
+    student_name: user.name,
+    student_id: user.id,
+    student_email: user.email,
+    student_profile_pic: null,
+    accepted: true,
+  });
 
   useEffect(() => {
     fetch(`${API}/api/users/tutors/${tutorId}`)
@@ -26,8 +38,41 @@ const TutorDetails = () => {
 
   function handleCreateReview() {
     setToggleCreateReview(!toggleCreateReview);
-    // setToggleReviews(!toggleReviews);
   }
+
+  const handleBooking = (event) => {
+    event.preventDefault();
+
+    const bookingData = {
+      ...userData,
+      userId: user.id,
+    };
+
+    const csrfToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("XSRF-TOKEN="))
+      .split("=")[1];
+
+    fetch(`${API}/api/requests/${tutorId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "CSRF-Token": csrfToken,
+      },
+      credentials: "include",
+      body: JSON.stringify(bookingData),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
+      .then((data) => console.log("Data inserted!:", data))
+      .catch((error) => console.error("Error handling booking:", error));
+  };
+
+  console.log(user);
 
   const { name, subject, description, profile_pic } = selectedTutor;
 
@@ -46,7 +91,7 @@ const TutorDetails = () => {
         </p>
         <p className="tutor-card-spacing">{description}</p>
         <div className="button-layout">
-          <Link to="/dashboard" className=" button-spacing">
+          <Link to="/dashboard" className="view-more button-spacing">
             <button className="view-more">Back to Home</button>
           </Link>
           <button
@@ -67,7 +112,10 @@ const TutorDetails = () => {
               Tutor Unavailable
             </button>
           ) : (
-            <button className="view-more button-spacing">
+            <button
+              className="view-more button-spacing"
+              onClick={handleBooking}
+            >
               Book a Session!
             </button>
           )}
