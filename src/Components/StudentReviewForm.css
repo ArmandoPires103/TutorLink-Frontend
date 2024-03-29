@@ -1,0 +1,75 @@
+.st-review-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #faf5ff;
+    background-size: cover;
+    background-position: center;
+}
+
+.st-review-form form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: rgba(176, 67, 215, 0.405);
+    border-radius: 10px;
+}
+
+.st-review-form h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.st-review-form .input {
+    margin-bottom: 20px;
+}
+
+.st-review-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.st-review-form input,
+.st-review-form textarea,
+.st-review-form select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 5px;
+    background-color: transparent;
+    color: #fff;
+    margin-bottom: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+.st-review-form textarea {
+    min-height: 100px;
+}
+
+.st-review-form select {
+    appearance: none;
+}
+
+.st-review-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.st-review-form button:hover {
+    background-color: #ddd;
+}
+

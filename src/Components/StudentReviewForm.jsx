@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import './StudentReviewForm.css'
 // Created by Juli & Carlitos
 const API = import.meta.env.VITE_BASE_URL;
 const StudentReviewForm = ({ selectedTutor }) => {
@@ -61,11 +62,12 @@ const StudentReviewForm = ({ selectedTutor }) => {
   };
 
   return (
-    <div>
-      <h2>Add New Student Review</h2>
+    <div className="st-review-form">
+      <h2 className="leave-review">Leave a review</h2>
       <form onSubmit={handleSubmit}>
+        <div className ="input">
         <div>
-          <label htmlFor="username">Student:</label>
+          <label htmlFor="username">Username:</label>
           <input
             id="username"
             type="text"
@@ -122,6 +124,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             <option value={2}>2</option>
             <option value={1}>1</option>
           </select>
+        </div>
         </div>
         <button type="submit">Submit</button>
       </form>
