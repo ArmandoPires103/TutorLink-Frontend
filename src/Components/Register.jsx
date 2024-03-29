@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import { useOutletContext } from 'react-router-dom'; // Import your context hook
+import { useOutletContext } from 'react-router-dom';
+import { useRef } from 'react';
+import Header from './Header'; // Import your context hook
 
 
 const URL = import.meta.env.VITE_BASE_URL;
@@ -103,31 +105,45 @@ const Register = () => {
 
   return (
     <div>
+      <Header/>
+      <div className='login-body'>
+        <div className='wrapper'>
       <h1>{user ? 'Edit_Profile' : 'Register'}</h1>
       <form onSubmit={handleSubmit}>
+        <div className='input-box'>
         <label htmlFor="username">Username:</label>
         <input id="username" type="text" value={formData.username} onChange={handleChange} required />
+        </div>
         <br />
+        <div className='input-box'>
         <label htmlFor="email">Email:</label>
         <input id="email" type="email" value={formData.email} onChange={handleChange} required />
+        </div>
         <br />
         {!user && (
-          <>
+          <div className='input-box'>
             <label htmlFor="password">Password:</label>
             <input id="password" type="password" value={formData.password} onChange={handleChange} required />
-          </>
+          </div>
         )}
+        <br />
+        <br />
         <label htmlFor="is_tutor"> Are you a tutor?</label>
         <input id="is_tutor" type="checkbox" checked={formData.is_tutor} onChange={handleChange} />
-        <br />
+        <div className='input-box'>
         <label htmlFor="name">Name:</label>
         <input id="name" type="text" checked={formData.name} onChange={handleChange}/>
+        </div>
         <br />
+        <div className='input-box'>
         <label htmlFor="subject">Subject:</label>
         <input id="subject" type="text" checked={formData.subject} onChange={handleChange}/>
+        </div>
         <br />
+        <div className='input-box'>
         <label htmlFor="description">Description:</label>
         <input id="description" type="text" checked={formData.description} onChange={handleChange}/>
+        </div>
         <br />
         Do you prefer remote tutoring?
         <label htmlFor="is_remote">  </label>
@@ -138,7 +154,10 @@ const Register = () => {
       <p>
         Already have an account? <Link to="/login">Login</Link>
       </p>
-      <button className="add-image-button" onClick={() => widgetRef.current.open()}> Add Image </button>
+      <button className="btn" onClick={() => widgetRef.current.open()}> Add Image </button>
+    </div>
+
+    </div>
     </div>
   );
 };

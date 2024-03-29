@@ -14,8 +14,10 @@
   }
   
   .developer-card {
+    flex: 0 0 calc(50% - 30px); 
     display: inline-block;
-    margin: 20px;
+    justify-content: space-between; 
+    margin: 60px;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;

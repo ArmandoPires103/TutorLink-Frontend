@@ -35,9 +35,9 @@ function StudentRequest() {
   .find((row) => row.startsWith("XSRF-TOKEN="))
   .split("=")[1]; // Extract CSRF token from cookies
 
-  const handleAccept = async (studentId) => {
+  const handleAccept = async () => {
     try {
-      const response = await fetch(`${API}/api/requests/${studentId}/`, {
+      const response = await fetch(`${API}/api/requests/${user.id}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,16 +50,16 @@ function StudentRequest() {
         throw new Error('Failed to accept student request');
       }
       // Update the student request list after accepting
-      const updatedStudentRequest = studentRequest.filter(student => student.student_id !== studentId);
+      const updatedStudentRequest = studentRequest.filter(user => user.student_id !== userId);
       setStudentRequest(updatedStudentRequest);
     } catch (error) {
       console.error('Error accepting student request:', error);
     }
   };
 
-  const handleReject = async (studentId) => {
+  const handleReject = async () => {
     try {
-      const response = await fetch(`${API}/api/requests/${studentId}/`, {
+      const response = await fetch(`${API}/api/requests/${user.id}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
