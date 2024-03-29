@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 // Created by Juli & Carlitos
 const API = import.meta.env.VITE_BASE_URL;
 const StudentReviewForm = ({ selectedTutor }) => {
   const { user } = useOutletContext(); // Access user data provided by the Outlet's context
+  const navigate = useNavigate();
 
   console.log(user);
 
@@ -43,16 +44,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Data inserted successfully:", data);
-
-        setFormData({
-          username: user.username,
-          name: selectedTutor.name,
-          subject: selectedTutor.subject,
-          description: "",
-          ratings: 5,
-          user_id: user.id,
-          tutor_id: selectedTutor.id,
-        });
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.error("Error inserting data:", error);
