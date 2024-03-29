@@ -21,9 +21,9 @@ const Dashboard = () => {
     }
   }
   return (
-    <div>
-      <h1>Welcome, {user && user.username.toUpperCase()}</h1>
-      <h3>This is a protected Component called Dashboard</h3>
+    <div className="dashboard-top">
+      <h2>Welcome, {user && user.username.toUpperCase()}</h2>
+      <h2 className="welcome-line">Meet our Tutors</h2>
       {/* Use user data as needed, for example: */}
       <Link to="/dashboard/edit">Edit Profile</Link>
       <button onClick={handleLogout}>Logout</button>

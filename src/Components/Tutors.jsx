@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../tutor.css";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 const Tutors = () => {
   const API = import.meta.env.VITE_BASE_URL;
@@ -14,6 +15,8 @@ const Tutors = () => {
   }, [tutors]);
 
   return (
+    <div>
+      <Header/>
     <div className="tutor-listing">
       {tutors &&
         tutors.map(({ profile_pic, name, subject, is_remote, id }) => (
@@ -41,6 +44,7 @@ const Tutors = () => {
             </Link>
           </div>
         ))}
+    </div>
     </div>
   );
 };

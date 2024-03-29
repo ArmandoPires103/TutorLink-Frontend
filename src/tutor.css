@@ -13,11 +13,11 @@
   width: 10rem;
   height: 10rem;
   border-radius: 10px;
+  width: auto;
 }
 
 .tutor-card {
   padding: 20px;
-  border: black 2px solid;
   border-radius: 10px;
   background: var(--primary-color-light);
   display: flex;
