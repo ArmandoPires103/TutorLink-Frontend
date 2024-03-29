@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import TutorReviews from "./TutorReviews";
 import StudentReviewForm from "./StudentReviewForm";
 import { useOutletContext } from "react-router-dom";
@@ -11,7 +11,6 @@ const TutorDetails = () => {
   const [toggleReviews, setToggleReviews] = useState(false);
   const [toggleCreateReview, setToggleCreateReview] = useState(false);
   const [availability, setAvailability] = useState(null);
-  const [tutorRequests, setTutorRequests] = useState([]);
 
   const { tutorId } = useParams();
 
@@ -29,7 +28,15 @@ const TutorDetails = () => {
     fetch(`${API}/api/users/tutors/${tutorId}`)
       .then((res) => res.json())
       .then((data) => setSelectedTutor(data.tutor))
-      .then(() => setAvailability(selectedTutor.is_enrolled));
+      .then(() => {
+        const storedStatus = localStorage.getItem(`bookingStatus_${tutorId}`);
+        console.log(storedStatus);
+        if (storedStatus !== null) {
+          setAvailability(JSON.parse(storedStatus));
+        } else {
+          setAvailability(selectedTutor.is_enrolled);
+        }
+      });
   }, [tutorId]);
 
   function handleToggleReviews() {
@@ -68,11 +75,13 @@ const TutorDetails = () => {
         }
         return res.json();
       })
-      .then((data) => console.log("Data inserted!:", data))
+      .then((data) => {
+        console.log("Data inserted!:", data);
+        localStorage.setItem(`bookingStatus_${tutorId}`, true);
+        setAvailability(true);
+      })
       .catch((error) => console.error("Error handling booking:", error));
   };
-
-  console.log(user);
 
   const { name, subject, description, profile_pic } = selectedTutor;
 
