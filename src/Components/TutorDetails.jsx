@@ -24,7 +24,7 @@ const TutorDetails = () => {
     student_id: user.id,
     student_email: user.email,
     student_profile_pic: null,
-    accepted: true,
+    accepted: false,
   });
 
   useEffect(() => {
