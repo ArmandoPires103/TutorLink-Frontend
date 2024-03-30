@@ -49,12 +49,12 @@
   border-radius: 10px;
   background: var(--primary-color-light);
   min-width: 80vw;
-  min-height: 50vh;
+  min-height: 60vh;
 }
 
 .button-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .button-spacing {
@@ -79,6 +79,23 @@
   color: #ffffff;
 }
 
+.view-more:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.unavailable-button {
+  background: lightgray;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border: 2px solid #36342f; /* Grey border */
+  border-radius: 10px;
+  color: #36342f; /* Grey text color */
+  cursor: not-allowed; /* Default cursor for disabled state */
+}
+
 .review-edit-del-button {
   background-color: var(--primary-color);
   font-size: 0.7rem; /* Adjusted font size */
@@ -94,8 +111,12 @@
   max-width: 75%;
 }
 
-.view-more:hover {
-  background-color: var(--primary-color-dark);
+.success-request {
+  background-color: lightgreen;
+  padding: 20px;
+  border-radius: 10px;
+  border: 4px solid green;
+  margin: 10px;
 }
 
 form button {
