@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 function StudentRequest() {
   const API = import.meta.env.VITE_BASE_URL;
   const [studentRequest, setStudentRequest] = useState([]); 
+  const [studentAccepted, setStudentAccepted] = useState(false)
   const { user } = useOutletContext();
   console.log(useOutletContext())
   
@@ -18,6 +19,7 @@ function StudentRequest() {
           if (!response.ok) {
             throw new Error('Failed to fetch data');
           }
+          
           const data = await response.json();
           console.log(data)
           setStudentRequest(data); 
@@ -35,49 +37,73 @@ function StudentRequest() {
   .find((row) => row.startsWith("XSRF-TOKEN="))
   .split("=")[1]; // Extract CSRF token from cookies
 
-  const handleAccept = async () => {
+  const toggleAcceptance = async () => {
     try {
-      const response = await fetch(`${API}/api/requests/${user.student_id}/`, {
-        method: 'POST',
+      const response = await fetch(`${API}/api/requests/${user.id}`, {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          "CSRF-Token": csrfToken,
+          "Content-Type": "application/json",
+          "CSRF-TOKEN": csrfToken, 
         },
-        credentials: "include",
-        body: JSON.stringify({ tutorId: user.id })
+        body: JSON.stringify({ accepted: !studentAccepted }), 
       });
+  
       if (!response.ok) {
-        throw new Error('Failed to accept student request');
+        throw new Error("Failed to update acceptance status");
       }
-      // Update the student request list after accepting
-      const updatedStudentRequest = studentRequest.filter(user => user.student_id !== userId);
-      setStudentRequest(updatedStudentRequest);
+  
+      setStudentAccepted((booked) => !booked);
+  
+      console.log("Acceptance status updated successfully");
     } catch (error) {
-      console.error('Error accepting student request:', error);
+      console.error("Error updating acceptance status:", error);
     }
   };
+  
 
-  // const handleReject = async () => {
+  //  const handleAccept = async (studentId) => {
   //   try {
-  //     const response = await fetch(`${API}/api/requests/${user.id}/`, {
-  //       method: 'POST',
+  //     const response = await fetch(`${API}/api/users/students/${studentId}`, {
+  //       method: 'PUT',
   //       headers: {
   //         'Content-Type': 'application/json',
-  //         "CSRF-Token": csrfToken,
+  //         "CSRF-Token": csrfToken, // Assuming you have CSRF protection
   //       },
-  //       body: JSON.stringify({ tutorId: user.id })
+  //       credentials: "include",
+  //       body: JSON.stringify({ is_enrolled: true }) // Assuming you want to set is_enrolled to true
   //     });
   //     if (!response.ok) {
-  //       throw new Error('Failed to reject student request');
+  //       throw new Error('Failed to accept student request');
   //     }
-  //     // Update the student request list after rejecting
-  //     const updatedStudentRequest = studentRequest.filter(student => student.student_id !== studentId);
+  //     // Update the student request list after accepting
+  //     const updatedStudentRequest = studentRequest.map(student => {
+  //       if (student.id === studentId) {
+  //         return { ...student, is_enrolled: true };
+  //       }
+  //       return student;
+  //     });
   //     setStudentRequest(updatedStudentRequest);
   //   } catch (error) {
-  //     console.error('Error rejecting student request:', error);
+  //     console.error('Error accepting student request:', error);
   //   }
   // };
 
+  // useEffect(() => {
+  //   const fetchStudentRequests = async () => {
+  //     try {
+  //       const response = await fetch(`${API}/api/users/students`);
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch student requests');
+  //       }
+  //       const data = await response.json();
+  //       setStudentRequest(data.student);
+  //     } catch (error) {
+  //       console.error('Error fetching student requests:', error);
+  //     }
+  //   };
+    
+  //   fetchStudentRequests();
+  // }, []);
   return (
     <div>
       <Header/>
@@ -99,7 +125,8 @@ function StudentRequest() {
             </div>
             { !is_enrolled && 
               <div className="accept-reject-buttons">
-                <button onClick={() => handleAccept(student_id)}>Accept</button>
+                {studentAccepted ? <p>Request Accepted</p> : <button onClick={toggleAcceptance}>Accept</button>}
+
               </div>
             }
           </div>
