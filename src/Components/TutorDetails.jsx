@@ -4,6 +4,7 @@ import TutorReviews from "./TutorReviews";
 import StudentReviewForm from "./StudentReviewForm";
 import { useOutletContext } from "react-router-dom";
 import Header from "./Header";
+import SuccessRequest from "./SuccessRequest";
 
 const TutorDetails = () => {
   const API = import.meta.env.VITE_BASE_URL;
@@ -12,6 +13,7 @@ const TutorDetails = () => {
   const [toggleReviews, setToggleReviews] = useState(false);
   const [toggleCreateReview, setToggleCreateReview] = useState(false);
   const [availability, setAvailability] = useState(null);
+  const [displayComponent, setDisplayComponent] = useState(false);
 
   const { tutorId } = useParams();
 
@@ -68,9 +70,15 @@ const TutorDetails = () => {
         }
         return res.json();
       })
-      .then((data) => console.log("Data inserted!:", data))
+      .then(() => setAvailability(true))
+      .then((data) => {
+        console.log("Data inserted!:", data);
+        setDisplayComponent(true);
+        setTimeout(() => {
+          setDisplayComponent(false);
+        }, 7000);
+      })
       .catch((error) => console.error("Error handling booking:", error));
-    setAvailability(true);
   };
 
   const { name, subject, description, profile_pic } = selectedTutor;
@@ -80,6 +88,8 @@ const TutorDetails = () => {
       <Header />
       <div className="tutor-details-wrapper">
         <div className="tutor-details-content">
+          {displayComponent && <SuccessRequest selectedTutor={selectedTutor} />}
+
           <h1 className="tutor-card-spacing">{name}</h1>
           <img
             src={profile_pic}
