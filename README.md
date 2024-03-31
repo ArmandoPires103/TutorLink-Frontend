@@ -50,8 +50,8 @@ Users can log in with their credentials to access TutorLink's features. If users
 1. Visit the login page.
 2. Enter your username and password.
 3. Click the "Login" button to authenticate.
-4. Log in with username: demo_student password: password to view a demo of the student view.
-5. Log in with username: demo_tutor password: password to view a demo of the tutor view.
+4. Log in with `username: demo_student password: password` to view a demo of the student view.
+5. Log in with `username: demo_tutor password: password` to view a demo of the tutor view.
 
 ### Registration Process:
 1. Visit the registration page.
