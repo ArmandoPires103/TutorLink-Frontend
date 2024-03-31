@@ -5,6 +5,17 @@ import { Link } from 'react-router-dom';
 import "../Components/Header.css"
 
 const Header = ({ isAuthenticated, onLogout }) => {
+/* try to use user obj from useOultetContext and Nullish coalescing assignment. default object for user in useOutletContext is {
+email
+: 
+"demo_student@example.com"
+id
+: 
+13
+username
+: 
+"demo_student"}
+*/
   return (
     <nav className="nav__content">
       <div className="logo"><Link to="/">TutorLink</Link></div>
