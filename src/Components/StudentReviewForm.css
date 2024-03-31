@@ -1,19 +1,8 @@
-.st-review-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #faf5ff;
-    background-size: cover;
-    background-position: center;
-}
-
 .st-review-form form {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: rgba(176, 67, 215, 0.405);
-    border-radius: 10px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
 }
 
 .st-review-form h2 {
@@ -37,11 +26,11 @@
 .st-review-form input,
 .st-review-form textarea,
 .st-review-form select {
-    width: 100%;
+    width: 50vw;
     padding: 10px;
     border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 5px;
-    background-color: transparent;
+    background-color: rgba(176, 67, 215, 0.405);
     color: #fff;
     margin-bottom: 10px;
     font-size: 16px;
@@ -57,7 +46,7 @@
 }
 
 .st-review-form button {
-    width: 100%;
+    width: 50%; 
     padding: 10px;
     background-color: #fff;
     border: none;
@@ -72,4 +61,3 @@
 .st-review-form button:hover {
     background-color: #ddd;
 }
-
