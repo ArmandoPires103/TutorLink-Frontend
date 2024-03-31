@@ -77,6 +77,11 @@ function StudentRequest() {
       <div className="student-request-container">
         <h2>Welcome, {user && user.username.toUpperCase()}</h2>
         <h2 className="requests-title">Student Requests</h2>
+        <div className="button-logout">
+          <button className="dashboard-btns"><Link to="/login">
+            Logout
+          </Link></button>
+        </div>
         {studentRequest.map(
           ({
             request_id,
@@ -110,11 +115,11 @@ function StudentRequest() {
           )
         )}
 
-        <div className="button-logout">
-          <Link to="/login" className="btn-logout">
+        {/* <div className="button-logout">
+          <button><Link to="/login" className="btn-logout">
             Logout
-          </Link>
-        </div>
+          </Link></button>
+        </div> */}
       </div>
     </div>
   );

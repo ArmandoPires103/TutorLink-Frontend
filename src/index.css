@@ -12,7 +12,7 @@
 }
 
 /* .logout-button{
-  padding-right: 20vw;
+  padding-left: 100vw;
 } */
 .dashboard-top{
   padding-top: 100px;
@@ -185,6 +185,26 @@ ul li a:hover {
   border-radius: 100%;
 }
 
+/* edit profile and logout buttons in dashboard */
+.dashboard-btns-div{
+  padding-left: 2.5rem;
+  display: inline-flex;
+  gap: 0.3rem;
+}
+.dashboard-btns a, .dashboard-btns {
+  background-color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 0.5rem 1rem; 
+  outline: none;
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+  color: #ffffff;
+}
+
 @media (width < 750px) {
   nav .checkbox {
     display: block;
@@ -235,7 +255,8 @@ ul li a:hover {
 
 
 .button-logout{
-  width: 96vw;
+  width: 10vw;
   display: flex;
   justify-content: right;
+  padding-bottom: 1rem;
 }

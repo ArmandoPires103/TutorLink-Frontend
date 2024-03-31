@@ -5,6 +5,7 @@ import Tutors from "./Tutors";
 
 const Dashboard = () => {
   const { user } = useOutletContext(); // Access user data provided by the Outlet's context
+  console.log( user )
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -25,8 +26,10 @@ const Dashboard = () => {
       <h2>Welcome, {user && user.username.toUpperCase()}</h2>
       <h2 className="welcome-line">Meet our Tutors</h2>
       {/* Use user data as needed, for example: */}
-      <Link to="/dashboard/edit">Edit Profile</Link>
-      <button onClick={handleLogout}>Logout</button>
+      <div className="dashboard-btns-div">
+      <button className="dashboard-btns view-more:hover"><Link to="/dashboard/edit">Edit Profile</Link></button>
+      <button onClick={handleLogout} className="dashboard-btns view-more:hover">Logout</button>
+      </div>
       <Tutors />
     </div>
   );
