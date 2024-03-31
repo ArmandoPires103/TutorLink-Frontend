@@ -1,21 +1,13 @@
-// Header.js
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import "../Components/Header.css"
 
-const Header = ({ isAuthenticated, onLogout }) => {
-/* try to use user obj from useOultetContext and Nullish coalescing assignment. default object for user in useOutletContext is {
-email
-: 
-"demo_student@example.com"
-id
-: 
-13
-username
-: 
-"demo_student"}
-*/
+const Header = () => {
+  const { user } = useOutletContext() ?? {}; // Access user data provided by the Outlet's context
+
+  // user is a null value so can't deconstruct so gotta use Nullish coalescing operator to put default value (if not null)
+
+console.log (user)
   return (
     <nav className="nav__content">
       <div className="logo"><Link to="/">TutorLink</Link></div>
@@ -26,10 +18,14 @@ username
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
-        { isAuthenticated ? (
-          <li><button onClick={onLogout}>Log Out</button></li>
+        { !user ? (
+          <li>
+            <Link to="/login">Log In</Link>
+          </li>
         ) : (
-          <li><Link to="/login">Log In</Link></li>
+          <li>
+            <Link to="/login">Log Out</Link>
+          </li>
         )}
       </ul>
     </nav>
