@@ -15,7 +15,10 @@
 } */
 .dashboard-top{
   padding-top: 100px;
+  background-color: #faf5ff;
+  height: 225vh;
 }
+
 * {
   padding: 0;
   margin: 0;
