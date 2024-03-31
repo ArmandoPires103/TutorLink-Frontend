@@ -66,7 +66,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
       <h2 className="leave-review">Leave a review</h2>
       <form onSubmit={handleSubmit}>
         <div className ="input">
-        <div>
+        {/* <div>
           <label htmlFor="username">Username:</label>
           <input
             id="username"
@@ -76,8 +76,8 @@ const StudentReviewForm = ({ selectedTutor }) => {
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <label htmlFor="name">Tutor Name:</label>
           <input
             id="name"
@@ -87,8 +87,8 @@ const StudentReviewForm = ({ selectedTutor }) => {
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <label htmlFor="subject">Subject:</label>
           <input
             id="subject"
@@ -98,7 +98,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             onChange={handleInputChange}
             required
           />
-        </div>
+        </div> */}
         <div>
           <label htmlFor="description">Review:</label>
           <textarea
