@@ -61,10 +61,11 @@ const StudentsEditReviewForm = ({
   }, []);
 
   return (
-    <div>
-      <h2>Edit Review</h2>
+    <div className="st-review-form">
+      <h2 className="leave-review">Edit Review</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className ="input">
+        {/* <div>
           <label htmlFor="username">Student:</label>
           <input
             id="username"
@@ -74,8 +75,8 @@ const StudentsEditReviewForm = ({
             readOnly
             className="input-gray-out"
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <label htmlFor="name">Tutor Name:</label>
           <input
             id="name"
@@ -85,8 +86,8 @@ const StudentsEditReviewForm = ({
             className="input-gray-out"
             readOnly
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <label htmlFor="subject">Subject:</label>
           <input
             id="subject"
@@ -96,7 +97,7 @@ const StudentsEditReviewForm = ({
             className="input-gray-out"
             readOnly
           />
-        </div>
+        </div> */}
         <div>
           <label htmlFor="description">Review:</label>
           <textarea
@@ -122,6 +123,7 @@ const StudentsEditReviewForm = ({
           </select>
         </div>
         <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );

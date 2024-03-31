@@ -5,7 +5,7 @@ import "../Components/Header.css"
 const Header = () => {
   const { user } = useOutletContext() ?? {}; // Access user data provided by the Outlet's context
 
-  // user is a null value so can't deconstruct so gotta use Nullish coalescing operator to put default value (if not null)
+  // user is a null value so can't deconstruct so gotta use Nullish coalescing operator to put default value (if user is null which it is if user isn't logged in)
 
 console.log (user)
   return (
