@@ -28,7 +28,7 @@ const Dashboard = () => {
       {/* Use user data as needed, for example: */}
       <div className="dashboard-btns-div">
       <button className="dashboard-btns view-more:hover"><Link to="/dashboard/edit">Edit Profile</Link></button>
-      <button onClick={handleLogout} className="dashboard-btns view-more:hover">Logout</button>
+      {/* <button onClick={handleLogout} className="dashboard-btns view-more:hover">Logout</button> */}
       </div>
       <Tutors />
     </div>
