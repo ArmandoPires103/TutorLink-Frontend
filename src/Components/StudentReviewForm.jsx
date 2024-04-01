@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import './StudentReviewForm.css'
+import "./StudentReviewForm.css";
+import SuccessCreateReview from "./SuccessCreateReview";
 // Created by Juli & Carlitos
 const API = import.meta.env.VITE_BASE_URL;
 const StudentReviewForm = ({ selectedTutor }) => {
   const { user } = useOutletContext(); // Access user data provided by the Outlet's context
   const navigate = useNavigate();
 
-  console.log(user);
-
-  console.log(user);
+  const [displayComponent, setDisplayComponent] = useState(false);
   const [formData, setFormData] = useState({
     username: user.username,
     name: selectedTutor.name,
@@ -19,10 +18,6 @@ const StudentReviewForm = ({ selectedTutor }) => {
     user_id: user.id,
     tutor_id: selectedTutor.id,
   });
-
-  console.log(formData);
-
-  console.log(`${API}api/users/tutors/${selectedTutor.id}/reviews`);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,8 +40,12 @@ const StudentReviewForm = ({ selectedTutor }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Data inserted successfully:", data);
-        navigate("/dashboard");
+        setDisplayComponent(true); // Set displayComponent to true to show the success message
+        setTimeout(() => {
+          navigate("/dashboard"); // Navigate after 4 seconds
+        }, 4000);
       })
+
       .catch((error) => {
         console.error("Error inserting data:", error);
       });
@@ -63,10 +62,11 @@ const StudentReviewForm = ({ selectedTutor }) => {
 
   return (
     <div className="st-review-form">
+      {displayComponent && <SuccessCreateReview />}
       <h2 className="leave-review">Leave a review</h2>
       <form onSubmit={handleSubmit}>
-        <div className ="input">
-        {/* <div>
+        <div className="input">
+          {/* <div>
           <label htmlFor="username">Username:</label>
           <input
             id="username"
@@ -77,7 +77,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             required
           />
         </div> */}
-        {/* <div>
+          {/* <div>
           <label htmlFor="name">Tutor Name:</label>
           <input
             id="name"
@@ -88,7 +88,7 @@ const StudentReviewForm = ({ selectedTutor }) => {
             required
           />
         </div> */}
-        {/* <div>
+          {/* <div>
           <label htmlFor="subject">Subject:</label>
           <input
             id="subject"
@@ -99,32 +99,32 @@ const StudentReviewForm = ({ selectedTutor }) => {
             required
           />
         </div> */}
-        <div>
-          <label htmlFor="description">Review:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="ratings">Rating:</label>
-          <select
-            id="ratings"
-            name="ratings"
-            value={formData.ratings}
-            onChange={handleInputChange}
-            required
-          >
-            <option value={5}>5</option>
-            <option value={4}>4</option>
-            <option value={3}>3</option>
-            <option value={2}>2</option>
-            <option value={1}>1</option>
-          </select>
-        </div>
+          <div>
+            <label htmlFor="description">Review:</label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="ratings">Rating:</label>
+            <select
+              id="ratings"
+              name="ratings"
+              value={formData.ratings}
+              onChange={handleInputChange}
+              required
+            >
+              <option value={5}>5</option>
+              <option value={4}>4</option>
+              <option value={3}>3</option>
+              <option value={2}>2</option>
+              <option value={1}>1</option>
+            </select>
+          </div>
         </div>
         <button type="submit">Submit</button>
       </form>

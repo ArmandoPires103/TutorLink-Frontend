@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import StudentsEditReviewForm from "./StudentsEditReviewForm";
+import DeleteReviewSuccess from "./DeleteReviewSuccess";
 
 const TutorReviews = ({ selectedTutor, toggleReviews, setToggleReviews }) => {
   const API = import.meta.env.VITE_BASE_URL;
@@ -8,7 +9,10 @@ const TutorReviews = ({ selectedTutor, toggleReviews, setToggleReviews }) => {
 
   const [tutorReviews, setTutorReviews] = useState([]);
   const [editReviewId, setEditReviewId] = useState(null);
+  const [displayComponent, setDisplayComponent] = useState(false);
   const tutorId = selectedTutor.id;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${API}/api/users/tutors/${tutorId}/reviews`)
@@ -37,10 +41,15 @@ const TutorReviews = ({ selectedTutor, toggleReviews, setToggleReviews }) => {
       .then((res) => {
         if (res.ok) {
           setTutorReviews(tutorReviews.filter((review) => review.id !== id));
-          // setToggleReviews(!toggleReviews);
         } else {
           console.error("Failed to delete review");
         }
+      })
+      .then(() => {
+        setDisplayComponent(true);
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 4000);
       })
       .catch((error) => {
         console.error("Error occurred while deleting review:", error);
@@ -50,6 +59,7 @@ const TutorReviews = ({ selectedTutor, toggleReviews, setToggleReviews }) => {
   return (
     <div>
       <h1>Reviews</h1>
+      {displayComponent && <DeleteReviewSuccess />}
       {tutorReviews.map(({ id, description, ratings, user_id }) => (
         <div key={id}>
           <p>{"⭐".repeat(ratings)}</p>
