@@ -111,7 +111,7 @@ const TutorDetails = () => {
           <p className="tutor-card-spacing">{description}</p>
           <div className="button-layout">
             <Link to="/dashboard" className="view-more button-spacing">
-              <button className="view-more">Back to Home</button>
+              Back to Home
             </Link>
             <button
               onClick={handleToggleReviews}
