@@ -48,7 +48,6 @@ function StudentRequest() {
             "CSRF-TOKEN": csrfToken,
           },
           credentials: "include",
-
           body: JSON.stringify({ accepted: true }),
         }
       );
@@ -70,6 +69,37 @@ function StudentRequest() {
       console.error("Error updating acceptance status:", error);
     }
   };
+  
+  const rejectRequest = async (requestId) => {
+    try {
+      const response = await fetch(
+        `${API}/api/requests/${user.id}/request/${requestId}`,
+        {
+          method: "DELETE", // Assuming your backend uses DELETE method to remove requests
+          headers: {
+            "Content-Type": "application/json",
+            "CSRF-TOKEN": csrfToken,
+          },
+          credentials: "include",
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Failed to reject request");
+      }
+  
+      // Remove the rejected request from the studentRequest state
+      const updatedStudentRequest = studentRequest.filter(
+        (request) => request.request_id !== requestId
+      );
+      setStudentRequest(updatedStudentRequest);
+  
+      console.log("Request rejected successfully");
+    } catch (error) {
+      console.error("Error rejecting request:", error);
+    }
+  };
+  
 
   return (
     <div>
@@ -108,6 +138,8 @@ function StudentRequest() {
                   <button onClick={() => toggleAcceptance(request_id)}>
                     Accept
                   </button>
+                  <button onClick={() => rejectRequest(request_id)}>Reject</button>
+
                 </div>
               )}
               {accepted && <p>Request Accepted</p>}
