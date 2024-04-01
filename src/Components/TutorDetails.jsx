@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import TutorReviews from "./TutorReviews";
 import StudentReviewForm from "./StudentReviewForm";
 import { useOutletContext } from "react-router-dom";
@@ -18,6 +23,8 @@ const TutorDetails = () => {
   const { tutorId } = useParams();
 
   const { user } = useOutletContext();
+
+  const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
     student_name: user.name,
@@ -76,7 +83,8 @@ const TutorDetails = () => {
         setDisplayComponent(true);
         setTimeout(() => {
           setDisplayComponent(false);
-        }, 7000);
+          navigate("/dashboard");
+        }, 4000);
       })
       .catch((error) => console.error("Error handling booking:", error));
   };
@@ -120,7 +128,7 @@ const TutorDetails = () => {
 
             {availability ? (
               <button className="unavailable-button button-spacing">
-                Tutor Unavailable
+                Pending Request...
               </button>
             ) : (
               <button
