@@ -37,7 +37,7 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="image">
-              <img src="https://res.cloudinary.com/dhexjuuzd/image/upload/v1711401879/Data%20seed%20class/malte-helmhold-mQmuv-3jAOc-unsplash_cuzbyg.jpg" alt="profile" />
+              <img src="https://res.cloudinary.com/dhexjuuzd/image/upload/v1711989260/image_b4uheb.png" alt="profile" />
             </div>
           </div>
         </section>
