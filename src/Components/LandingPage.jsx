@@ -31,7 +31,7 @@ const LandingPage = () => {
                 TutorLink: Connecting learners with exceptional tutors worldwide. Our platform offers personalized learning experiences tailored to individual needs, empowering students to achieve their academic goals. With a diverse network of qualified tutors, TutorLink ensures quality education accessible to all.
               </p>
               <div className="action__btns">
-              <Link to="/dashboard">
+              <Link to="/login">
                 <button className="hire__me">Hire A Tutor</button>
               </Link>
               </div>

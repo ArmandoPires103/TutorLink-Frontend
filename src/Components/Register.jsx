@@ -151,9 +151,11 @@ const Register = () => {
         <br />
           <button type="submit" className='btn'>{user ? 'Update' : 'Register'}</button>
       </form>
+      <div className='p-login'>
       <p>
         Already have an account? <Link to="/login">Login</Link>
       </p>
+      </div>
       <button className="btn" onClick={() => widgetRef.current.open()}> Add Image </button>
     </div>
 

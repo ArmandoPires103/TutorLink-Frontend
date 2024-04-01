@@ -13,6 +13,11 @@
 /* .logout-button{
   padding-left: 100vw;
 } */
+.accept-reject-buttons{
+  display: flex;
+  padding-left: 60px;
+  max-width: 50%;
+}
 .dashboard-top{
   padding-top: 100px;
   background-color: #faf5ff;
@@ -31,6 +36,10 @@ a {
 
 body {
   font-family: "Poppins", sans-serif;
+}
+
+.p-login{
+  padding-left: 40px;
 }
 
 /* nav {
