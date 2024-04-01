@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 function StudentRequest() {
   const API = import.meta.env.VITE_BASE_URL;
   const [studentRequest, setStudentRequest] = useState([]);
-  const [studentAccepted, setStudentAccepted] = useState(false);
   const { user } = useOutletContext();
   console.log(useOutletContext());
 
@@ -65,6 +64,7 @@ function StudentRequest() {
       setStudentRequest(updatedStudentRequest);
 
       console.log("Acceptance status updated successfully");
+      window.location.reload();
     } catch (error) {
       console.error("Error updating acceptance status:", error);
     }
@@ -116,12 +116,12 @@ function StudentRequest() {
           ({
             request_id,
             student_name,
-            student_id,
             student_email,
             student_profile_pic,
             accepted,
           }) => (
             <div className="card" key={request_id}>
+              <div className="image-info-container">
               <div className="imgBx">
                 <img src={student_profile_pic} alt="Student Profile Pic" />
               </div>
@@ -133,6 +133,7 @@ function StudentRequest() {
                   Student Email: <span className="bold"> {student_email} </span>
                 </div>
               </div>
+            </div>
               {!accepted && (
                 <div className="accept-reject-buttons">
                   <button onClick={() => toggleAcceptance(request_id)}>

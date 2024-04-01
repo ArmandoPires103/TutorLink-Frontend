@@ -56,7 +56,7 @@ export default function About() {
             />
           </a>
           <h2 className="developer-name">Isiah Aruffat</h2>
-          <p>Borough. Super Dad.</p>
+          <p>Manhattan. Super Dad.</p>
         </div>
         <div className="developer-card">
           <a className="developer-link" href="https://github.com/JuliGarc91">
