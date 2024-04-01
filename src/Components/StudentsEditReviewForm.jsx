@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import EditReviewSuccess from "./EditReviewSuccess";
 
 const StudentsEditReviewForm = ({
   tutorId,
@@ -11,7 +12,9 @@ const StudentsEditReviewForm = ({
   const API = import.meta.env.VITE_BASE_URL;
 
   const { user } = useOutletContext();
+  const navigate = useNavigate();
 
+  const [displayComponent, setDisplayComponent] = useState(false);
   const [editedTutorReview, setEditedTutorReview] = useState({
     subject: "",
     description: "",
@@ -47,8 +50,12 @@ const StudentsEditReviewForm = ({
         .then((res) => res.json())
         .then((data) => {
           console.log("Review Updated!", data);
+          setDisplayComponent(true);
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 4000);
         });
-      setToggleReviews(!toggleReviews);
+      // setToggleReviews(!toggleReviews);
     } catch (error) {
       return error;
     }
@@ -62,10 +69,11 @@ const StudentsEditReviewForm = ({
 
   return (
     <div className="st-review-form">
+      {displayComponent && <EditReviewSuccess />}
       <h2 className="leave-review">Edit Review</h2>
       <form onSubmit={handleSubmit}>
-        <div className ="input">
-        {/* <div>
+        <div className="input">
+          {/* <div>
           <label htmlFor="username">Student:</label>
           <input
             id="username"
@@ -76,7 +84,7 @@ const StudentsEditReviewForm = ({
             className="input-gray-out"
           />
         </div> */}
-        {/* <div>
+          {/* <div>
           <label htmlFor="name">Tutor Name:</label>
           <input
             id="name"
@@ -87,7 +95,7 @@ const StudentsEditReviewForm = ({
             readOnly
           />
         </div> */}
-        {/* <div>
+          {/* <div>
           <label htmlFor="subject">Subject:</label>
           <input
             id="subject"
@@ -98,31 +106,31 @@ const StudentsEditReviewForm = ({
             readOnly
           />
         </div> */}
-        <div>
-          <label htmlFor="description">Review:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={editedTutorReview.description}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="ratings">Rating:</label>
-          <select
-            id="ratings"
-            name="ratings"
-            value={editedTutorReview.ratings}
-            onChange={handleInputChange}
-          >
-            <option value={5}>5</option>
-            <option value={4}>4</option>
-            <option value={3}>3</option>
-            <option value={2}>2</option>
-            <option value={1}>1</option>
-          </select>
-        </div>
-        <button type="submit">Submit</button>
+          <div>
+            <label htmlFor="description">Review:</label>
+            <textarea
+              id="description"
+              name="description"
+              value={editedTutorReview.description}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="ratings">Rating:</label>
+            <select
+              id="ratings"
+              name="ratings"
+              value={editedTutorReview.ratings}
+              onChange={handleInputChange}
+            >
+              <option value={5}>5</option>
+              <option value={4}>4</option>
+              <option value={3}>3</option>
+              <option value={2}>2</option>
+              <option value={1}>1</option>
+            </select>
+          </div>
+          <button type="submit">Submit</button>
         </div>
       </form>
     </div>
