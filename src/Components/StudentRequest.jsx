@@ -38,6 +38,7 @@ function StudentRequest() {
 
   const toggleAcceptance = async (requestId) => {
     try {
+      // Send a PUT request to update the acceptance status of the request
       const response = await fetch(
         `${API}/api/requests/${user.id}/request/${requestId}`,
         {
@@ -54,7 +55,7 @@ function StudentRequest() {
       if (!response.ok) {
         throw new Error("Failed to update acceptance status");
       }
-
+      // Update the local state to reflect the accepted status
       const updatedStudentRequest = studentRequest.map((request) => {
         if (request.request_id === requestId) {
           return { ...request, accepted: true };
@@ -135,13 +136,15 @@ function StudentRequest() {
               </div>
             </div>
               {!accepted && (
-                <div className="accept-reject-buttons">
-                  <button onClick={() => toggleAcceptance(request_id)}>
-                    Accept
-                  </button>
-                  <button onClick={() => rejectRequest(request_id)}>Reject</button>
-
-                </div>
+             <div className="accept-reject-buttons">
+             <button className="dashboard-btns view-more:hover" onClick={() => toggleAcceptance(request_id)}>
+               Accept
+             </button>
+             <button className="dashboard-btns view-more:hover" onClick={() => rejectRequest(request_id)}>
+               Reject
+             </button>
+           </div>
+           
               )}
               {accepted && <p>Request Accepted</p>}
             </div>
